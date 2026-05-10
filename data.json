@@ -85,6 +85,17 @@
       "referencia": "TRANSFERENCIA",
       "notas": "obra cala Vinyes",
       "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778431858208_002CA0.pdf"
+    },
+    {
+      "id": "mp00hmdxx441",
+      "proveedorId": "mp00fu7b31k1",
+      "facturaId": "mp00gxts04fg",
+      "fecha": "2026-05-10",
+      "importe": 1573,
+      "metodo": "Transferencia bancaria",
+      "referencia": "TRANSFERENCIA",
+      "notas": "",
+      "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778431989505_C298EC.pdf"
     }
   ]
 }
