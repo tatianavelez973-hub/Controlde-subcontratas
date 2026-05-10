@@ -32,7 +32,8 @@
       "importe": 1870,
       "metodo": "Transferencia bancaria",
       "referencia": "TRANSFERENCIA",
-      "notas": "PAGADA"
+      "notas": "PAGADA",
+      "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778431703057_481571.pdf"
     }
   ]
 }
