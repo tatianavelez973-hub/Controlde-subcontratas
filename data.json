@@ -11,6 +11,17 @@
     }
   ],
   "presupuestos": [],
-  "facturas": [],
+  "facturas": [
+    {
+      "id": "mozznkf82q5y",
+      "numero": "FACTURA 3/2026",
+      "proveedorId": "mozzlxpr8dnn",
+      "presupuestoId": "",
+      "fecha": "2026-05-08",
+      "importe": 1870,
+      "vencimiento": "2026-05-08",
+      "notas": ""
+    }
+  ],
   "pagos": []
 }
