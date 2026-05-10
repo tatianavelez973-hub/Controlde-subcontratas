@@ -61,6 +61,17 @@
       "vencimiento": "2026-05-08",
       "notas": "CALAVATRA",
       "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778431957521_Factura_2026-0010_ventana_oscilobatiente_.pdf"
+    },
+    {
+      "id": "mp00io2sk000",
+      "numero": "2026-0012",
+      "proveedorId": "mp00fu7b31k1",
+      "presupuestoId": "",
+      "fecha": "2026-05-08",
+      "importe": 217.8,
+      "vencimiento": "2026-05-08",
+      "notas": "",
+      "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778432038117_Factura_2026-0012_PERSIANA_CONTADOR_AGUA_.pdf"
     }
   ],
   "pagos": [
