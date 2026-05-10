@@ -23,5 +23,16 @@
       "notas": ""
     }
   ],
-  "pagos": []
+  "pagos": [
+    {
+      "id": "mozzo89nifay",
+      "proveedorId": "mozzlxpr8dnn",
+      "facturaId": "mozznkf82q5y",
+      "fecha": "2026-05-10",
+      "importe": 1870,
+      "metodo": "Transferencia bancaria",
+      "referencia": "TRANSFERENCIA",
+      "notas": "PAGADA"
+    }
+  ]
 }
