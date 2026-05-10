@@ -21,6 +21,8 @@
   --safe-b:env(safe-area-inset-bottom,0px)
 }
 html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--tx)}
+
+/* ══ PANTALLA DE CONFIGURACIÓN ══ */
 #setup-screen{position:fixed;inset:0;background:var(--sb);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
 #setup-screen.hide{display:none}
 .setup-card{background:var(--wh);border-radius:16px;padding:28px 24px;width:100%;max-width:440px;box-shadow:0 8px 40px rgba(0,0,0,.3)}
@@ -32,16 +34,21 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 .setup-fg input{padding:10px 12px;border:1.5px solid var(--brd);border-radius:8px;font-size:14px;font-family:inherit;color:var(--tx)}
 .setup-fg input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
 .setup-hint{font-size:11px;color:var(--mu);margin-top:3px;line-height:1.5}
+.setup-hint a{color:var(--p)}
 .setup-btn{width:100%;padding:13px;background:var(--p);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px}
 .setup-btn:hover{background:var(--pd)}
 .setup-btn:disabled{opacity:.5;cursor:not-allowed}
 .setup-sep{border:none;border-top:1px solid var(--brd);margin:20px 0}
 .setup-err{background:#fee2e2;color:var(--err);border-radius:8px;padding:10px 12px;font-size:12px;margin-top:10px;display:none}
+
+/* ══ LOADING OVERLAY ══ */
 #loading-overlay{position:fixed;inset:0;background:rgba(30,41,59,.85);z-index:8888;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
 #loading-overlay.hide{display:none}
 .ld-spin{width:38px;height:38px;border:3px solid #334155;border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .ld-txt{color:#94a3b8;font-size:13px;font-weight:600}
+
+/* ══ LAYOUT ══ */
 .app{display:flex;height:100vh;overflow:hidden}
 .sidebar{width:240px;background:var(--sb);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
 .sb-logo{padding:20px;border-bottom:1px solid #334155}
@@ -54,10 +61,12 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 .nav-item.on{background:var(--sbh);color:#fff;border-left-color:var(--p)}
 .nav-item .ico{font-size:16px;width:20px;text-align:center}
 .sb-footer{padding:16px 20px;border-top:1px solid #334155;margin-top:auto}
+.sb-repo{font-size:11px;color:#60a5fa;margin-bottom:10px;word-break:break-all}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
 .topbar{background:var(--wh);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd);box-shadow:var(--sh);flex-shrink:0}
 .topbar h2{font-size:16px;font-weight:700}
 .content{flex:1;overflow-y:auto;padding:20px;padding-bottom:calc(20px + var(--safe-b))}
+
 @media(max-width:767px){
   .sidebar{display:none}
   .topbar{padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top,0px))}
@@ -69,10 +78,14 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 .bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;cursor:pointer;color:var(--mu);font-size:10px;font-weight:600;transition:color .15s;user-select:none}
 .bn-item .bn-ico{font-size:20px;line-height:1}
 .bn-item.on{color:var(--p)}
+
+/* ══ SAVE STATUS BAR ══ */
 #save-bar{position:fixed;top:0;left:0;right:0;z-index:500;padding:6px 16px;font-size:12px;font-weight:600;text-align:center;display:none;gap:8px;align-items:center;justify-content:center}
 #save-bar.saving{display:flex;background:#fef3c7;color:#92400e}
 #save-bar.saved{display:flex;background:#dcfce7;color:#166534}
 #save-bar.error{display:flex;background:#fee2e2;color:var(--err)}
+
+/* ══ CARDS / TABLE ══ */
 .cards-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
 .kpi-card{background:var(--wh);border-radius:10px;padding:16px;box-shadow:var(--sh);border-left:4px solid var(--p)}
 .kpi-card.ok{border-left-color:var(--ok)}.kpi-card.warn{border-left-color:var(--warn)}
@@ -106,11 +119,15 @@ tr:hover td{background:#fafafa}
 .ic-actions{display:flex;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9}
 .progress-bar{height:5px;background:#e2e8f0;border-radius:3px;overflow:hidden;margin-top:8px}
 .progress-fill{height:100%;background:var(--p);border-radius:3px}
+
+/* ══ BADGES ══ */
 .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap}
 .b-pen{background:#fef3c7;color:#92400e}.b-pag{background:#dcfce7;color:#166534}
 .b-par{background:#dbeafe;color:#1e40af}.b-vec{background:#fee2e2;color:#991b1b}
 .b-apr{background:#dcfce7;color:#166534}.b-cur{background:#e0f2fe;color:#0c4a6e}
 .b-cer{background:#f1f5f9;color:#475569}
+
+/* ══ BUTTONS ══ */
 .btn{padding:7px 14px;border-radius:8px;border:none;cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;user-select:none}
 .btn-p{background:var(--p);color:#fff}.btn-p:hover{background:var(--pd)}
 .btn-o{background:var(--wh);border:1px solid var(--brd);color:var(--tx)}.btn-o:hover{background:var(--bg)}
@@ -122,10 +139,14 @@ tr:hover td{background:#fafafa}
 .fab{display:none;position:fixed;right:16px;bottom:calc(72px + var(--safe-b));width:52px;height:52px;border-radius:50%;background:var(--p);color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 16px rgba(37,99,235,.4);align-items:center;justify-content:center;z-index:99;transition:transform .15s}
 .fab:active{transform:scale(.94)}
 @media(max-width:767px){.fab{display:flex}}
+
+/* ══ INPUTS ══ */
 input,select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--brd);border-radius:8px;font-size:14px;color:var(--tx);background:var(--wh);font-family:inherit;transition:border-color .15s;-webkit-appearance:none;appearance:none}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
 select.flt{width:auto;min-width:140px;font-size:12px;padding:6px 10px}
 input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
+
+/* ══ MODAL ══ */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;justify-content:center}
 .overlay.open{display:flex}
 @media(min-width:768px){.overlay{align-items:center}}
@@ -142,11 +163,15 @@ input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
 .modal-body{padding:20px}
 .modal-ft{padding:12px 20px;border-top:1px solid var(--brd);display:flex;gap:8px;position:sticky;bottom:0;background:var(--wh);padding-bottom:calc(12px + var(--safe-b))}
 .modal-ft .btn{flex:1;justify-content:center;padding:12px}
+
+/* ══ FORM ══ */
 .fg{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
 .fg label{font-size:11px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.04em}
 .fg-hint{font-size:11px;color:var(--mu);margin-top:3px}
 .fg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:400px){.fg-row{grid-template-columns:1fr}}
+
+/* ══ MISC ══ */
 .fw{font-weight:700}.mu{color:var(--mu)}.tg{color:var(--ok)}.tr{color:var(--err)}.to{color:var(--warn)}
 .section{display:none}.section.on{display:block}
 .res-right td:nth-child(n+2):nth-child(-n+5){text-align:right}
@@ -162,11 +187,14 @@ input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
 </style>
 </head>
 <body>
+
+<!-- ══ CONFIGURACIÓN INICIAL ══ -->
 <div id="setup-screen">
   <div class="setup-card">
     <div class="setup-logo">🏗️</div>
     <div class="setup-title">Control de Subcontratas</div>
     <div class="setup-sub">Conecta con tu repositorio de GitHub para guardar los datos</div>
+
     <div class="setup-fg">
       <label>Usuario de GitHub</label>
       <input id="cfg-user" placeholder="tu-usuario" autocomplete="off" autocapitalize="none" spellcheck="false">
@@ -179,18 +207,26 @@ input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
     <div class="setup-fg">
       <label>Token de acceso personal</label>
       <input id="cfg-token" type="password" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off" spellcheck="false">
-      <div class="setup-hint">Créalo en GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic).<br>Permisos necesarios: <strong>repo</strong>.</div>
+      <div class="setup-hint">
+        Créalo en GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic).<br>
+        Permisos necesarios: <strong>repo</strong> (acceso completo al repositorio).
+      </div>
     </div>
     <hr class="setup-sep">
     <button class="setup-btn" id="setup-btn" onclick="setupConnect()">Conectar y empezar →</button>
     <div class="setup-err" id="setup-err"></div>
   </div>
 </div>
+
+<!-- ══ CARGANDO ══ -->
 <div id="loading-overlay" class="hide">
   <div class="ld-spin"></div>
   <div class="ld-txt" id="ld-txt">Cargando datos…</div>
 </div>
+
+<!-- ══ BARRA DE ESTADO GUARDADO ══ -->
 <div id="save-bar"></div>
+
 <div class="app">
 <nav class="sidebar">
   <div class="sb-logo">
@@ -211,6 +247,7 @@ input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
     <button class="btn btn-o btn-sm" style="width:100%;justify-content:center" onclick="resetConfig()">⚙️ Cambiar cuenta</button>
   </div>
 </nav>
+
 <div class="main">
   <div class="topbar">
     <h2 id="topbar-title">Dashboard</h2>
@@ -219,6 +256,8 @@ input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
     </div>
   </div>
   <div class="content">
+
+    <!-- DASHBOARD -->
     <div id="sec-dashboard" class="section on">
       <div class="cards-row" id="kpi-cards"></div>
       <div class="tbl-wrap" id="dash-desk-wrap">
@@ -237,22 +276,31 @@ input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
         </table></div>
       </div>
     </div>
+
+    <!-- PROVEEDORES -->
     <div id="sec-proveedores" class="section">
       <div class="sec-hd"><h3>Proveedores</h3><button class="btn btn-p btn-sm" onclick="openModal('proveedor')">+ Añadir</button></div>
-      <div class="sec-filters"><input class="flt" type="text" id="srch-prov" placeholder="🔍 Buscar..." oninput="render('proveedores')" style="flex:1;min-width:160px"></div>
+      <div class="sec-filters">
+        <input class="flt" type="text" id="srch-prov" placeholder="🔍 Buscar..." oninput="render('proveedores')" style="flex:1;min-width:160px">
+      </div>
       <div class="tbl-wrap" id="prov-desk"><div class="tbl-scroll"><table>
         <thead><tr><th>Empresa</th><th>CIF</th><th>Contacto</th><th>Teléfono</th><th>Email</th><th></th></tr></thead>
         <tbody id="tbl-prov"></tbody>
       </table></div></div>
       <div class="item-list" id="mob-prov"></div>
     </div>
+
+    <!-- PRESUPUESTOS -->
     <div id="sec-presupuestos" class="section">
       <div class="sec-hd"><h3>Presupuestos</h3><button class="btn btn-p btn-sm" onclick="openModal('presupuesto')">+ Añadir</button></div>
       <div class="sec-filters">
         <select class="flt" id="fp-prov" onchange="render('presupuestos')"><option value="">Todos los proveedores</option></select>
         <select class="flt" id="fp-est" onchange="render('presupuestos')">
-          <option value="">Todos los estados</option><option value="pendiente">Pendiente aprobación</option>
-          <option value="aprobado">Aprobado</option><option value="en_curso">En curso</option><option value="cerrado">Cerrado</option>
+          <option value="">Todos los estados</option>
+          <option value="pendiente">Pendiente aprobación</option>
+          <option value="aprobado">Aprobado</option>
+          <option value="en_curso">En curso</option>
+          <option value="cerrado">Cerrado</option>
         </select>
       </div>
       <div class="tbl-wrap" id="pre-desk"><div class="tbl-scroll"><table>
@@ -261,13 +309,17 @@ input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
       </table></div></div>
       <div class="item-list" id="mob-pre"></div>
     </div>
+
+    <!-- FACTURAS -->
     <div id="sec-facturas" class="section">
       <div class="sec-hd"><h3>Facturas</h3><button class="btn btn-p btn-sm" onclick="openModal('factura')">+ Añadir</button></div>
       <div class="sec-filters">
         <select class="flt" id="ff-prov" onchange="render('facturas')"><option value="">Todos los proveedores</option></select>
         <select class="flt" id="ff-est" onchange="render('facturas')">
-          <option value="">Todos los estados</option><option value="pendiente">Pendiente</option>
-          <option value="parcial">Parcial</option><option value="pagada">Pagada</option>
+          <option value="">Todos los estados</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="parcial">Parcial</option>
+          <option value="pagada">Pagada</option>
         </select>
       </div>
       <div class="tbl-wrap" id="fac-desk"><div class="tbl-scroll"><table>
@@ -276,6 +328,8 @@ input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
       </table></div></div>
       <div class="item-list" id="mob-fac"></div>
     </div>
+
+    <!-- PAGOS -->
     <div id="sec-pagos" class="section">
       <div class="sec-hd"><h3>Pagos</h3><button class="btn btn-p btn-sm" onclick="openModal('pago')">+ Registrar</button></div>
       <div class="sec-filters">
@@ -288,9 +342,12 @@ input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
       </table></div></div>
       <div class="item-list" id="mob-pag"></div>
     </div>
+
   </div>
 </div>
 </div>
+
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <div class="bn-item on" id="bn-dashboard" onclick="goTo('dashboard')"><span class="bn-ico">📊</span><span>Dashboard</span></div>
   <div class="bn-item" id="bn-proveedores" onclick="goTo('proveedores')"><span class="bn-ico">🏢</span><span>Empresas</span></div>
@@ -299,9 +356,14 @@ input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
   <div class="bn-item" id="bn-pagos" onclick="goTo('pagos')"><span class="bn-ico">💳</span><span>Pagos</span></div>
 </nav>
 <button class="fab" onclick="fabClick()">+</button>
+
+<!-- MODAL -->
 <div class="overlay" id="overlay" onclick="overlayClick(event)">
   <div class="modal">
-    <div class="modal-hd"><h3 id="modal-title">Añadir</h3><button class="modal-x" onclick="closeModal()">×</button></div>
+    <div class="modal-hd">
+      <h3 id="modal-title">Añadir</h3>
+      <button class="modal-x" onclick="closeModal()">×</button>
+    </div>
     <div class="modal-body" id="modal-body"></div>
     <div class="modal-ft">
       <button class="btn btn-o" onclick="closeModal()">Cancelar</button>
@@ -309,6 +371,8 @@ input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
     </div>
   </div>
 </div>
+
+<!-- CONFIRM -->
 <div class="overlay" id="confirm-overlay">
   <div class="modal" style="max-width:340px;border-radius:14px">
     <div class="modal-body" style="padding:24px 20px;text-align:center">
@@ -322,53 +386,100 @@ input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
     </div>
   </div>
 </div>
+
 <div class="toasts" id="toasts"></div>
+
 <script>
 const CFG_KEY = 'ctrl_sub_gh_cfg';
 let CFG = null;
 let FILE_SHA = null;
-function loadConfig(){ try { CFG = JSON.parse(localStorage.getItem(CFG_KEY)); } catch(e){} }
+
+function loadConfig(){
+  try { CFG = JSON.parse(localStorage.getItem(CFG_KEY)); } catch(e){}
+}
 function saveConfig(){ localStorage.setItem(CFG_KEY, JSON.stringify(CFG)); }
+
 async function setupConnect(){
-  const user=document.getElementById('cfg-user').value.trim();
-  const repo=document.getElementById('cfg-repo').value.trim();
-  const token=document.getElementById('cfg-token').value.trim();
-  const errEl=document.getElementById('setup-err');
-  const btn=document.getElementById('setup-btn');
-  errEl.style.display='none';
+  const user  = document.getElementById('cfg-user').value.trim();
+  const repo  = document.getElementById('cfg-repo').value.trim();
+  const token = document.getElementById('cfg-token').value.trim();
+  const errEl = document.getElementById('setup-err');
+  const btn   = document.getElementById('setup-btn');
+  errEl.style.display = 'none';
   if(!user||!repo||!token){ errEl.textContent='Rellena todos los campos.'; errEl.style.display='block'; return; }
-  btn.disabled=true; btn.textContent='Verificando…';
+  btn.disabled = true; btn.textContent = 'Verificando…';
   try {
-    const res=await fetch(`https://api.github.com/repos/${user}/${repo}`,{headers:{Authorization:`token ${token}`,Accept:'application/vnd.github.v3+json'}});
-    if(res.status===401){ errEl.textContent='Token inválido.'; errEl.style.display='block'; btn.disabled=false; btn.textContent='Conectar y empezar →'; return; }
-    if(res.status===404){ errEl.textContent='Repositorio no encontrado.'; errEl.style.display='block'; btn.disabled=false; btn.textContent='Conectar y empezar →'; return; }
-    if(!res.ok){ errEl.textContent='Error al conectar ('+res.status+').'; errEl.style.display='block'; btn.disabled=false; btn.textContent='Conectar y empezar →'; return; }
-  } catch(e){ errEl.textContent='No se pudo conectar con GitHub.'; errEl.style.display='block'; btn.disabled=false; btn.textContent='Conectar y empezar →'; return; }
-  CFG={user,repo,token}; saveConfig();
+    const res = await fetch(`https://api.github.com/repos/${user}/${repo}`, {
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    if(res.status===401){ errEl.textContent='Token inválido. Revisa que es correcto.'; errEl.style.display='block'; btn.disabled=false; btn.textContent='Conectar y empezar →'; return; }
+    if(res.status===404){ errEl.textContent='Repositorio no encontrado. Comprueba el usuario y el nombre del repositorio.'; errEl.style.display='block'; btn.disabled=false; btn.textContent='Conectar y empezar →'; return; }
+    if(!res.ok){ errEl.textContent='Error al conectar con GitHub ('+res.status+').'; errEl.style.display='block'; btn.disabled=false; btn.textContent='Conectar y empezar →'; return; }
+  } catch(e){
+    errEl.textContent='No se pudo conectar con GitHub. Comprueba tu conexión.';
+    errEl.style.display='block'; btn.disabled=false; btn.textContent='Conectar y empezar →'; return;
+  }
+  CFG = { user, repo, token };
+  saveConfig();
   document.getElementById('setup-screen').classList.add('hide');
   await initApp();
 }
-function resetConfig(){ if(!confirm('¿Cambiar la configuración?')) return; localStorage.removeItem(CFG_KEY); location.reload(); }
-const DATA_PATH='data.json';
-function ghHeaders(){ return {Authorization:`token ${CFG.token}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'}; }
+
+function resetConfig(){
+  if(!confirm('¿Cambiar la configuración de cuenta?')) return;
+  localStorage.removeItem(CFG_KEY);
+  location.reload();
+}
+
+const DATA_PATH = 'data.json';
+function ghHeaders(){
+  return { Authorization: `token ${CFG.token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' };
+}
+
 async function ghLoad(){
-  const res=await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${DATA_PATH}`,{headers:ghHeaders()});
-  if(res.status===404){ FILE_SHA=null; return {proveedores:[],presupuestos:[],facturas:[],pagos:[]}; }
+  const res = await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${DATA_PATH}`, { headers: ghHeaders() });
+  if(res.status===404){ FILE_SHA = null; return { proveedores:[], presupuestos:[], facturas:[], pagos:[] }; }
   if(!res.ok) throw new Error('Error HTTP '+res.status);
-  const json=await res.json(); FILE_SHA=json.sha;
+  const json = await res.json();
+  FILE_SHA = json.sha;
   return JSON.parse(atob(json.content.replace(/\n/g,'')));
 }
+
 async function ghSave(db){
-  const content=btoa(unescape(encodeURIComponent(JSON.stringify(db,null,2))));
-  const body={message:'Actualización datos '+new Date().toISOString().slice(0,16).replace('T',' '),content,...(FILE_SHA?{sha:FILE_SHA}:{})};
-  const res=await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${DATA_PATH}`,{method:'PUT',headers:ghHeaders(),body:JSON.stringify(body)});
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(db, null, 2))));
+  const body = { message: 'Actualización datos ' + new Date().toISOString().slice(0,16).replace('T',' '), content, ...(FILE_SHA ? { sha: FILE_SHA } : {}) };
+  const res = await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${DATA_PATH}`, { method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body) });
   if(!res.ok) throw new Error('Error HTTP '+res.status);
-  FILE_SHA=(await res.json()).content.sha;
+  const json = await res.json();
+  FILE_SHA = json.content.sha;
 }
-let DB={proveedores:[],presupuestos:[],facturas:[],pagos:[]};
-let _eid=null,_mtype=null,_confirmCb=null,_saveTimer=null;
-const SECS=['dashboard','proveedores','presupuestos','facturas','pagos'];
-const TITLES={dashboard:'Dashboard',proveedores:'Proveedores',presupuestos:'Presupuestos',facturas:'Facturas',pagos:'Pagos'};
+
+async function ghUploadPDF(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try {
+        const base64 = e.target.result.split(',')[1];
+        const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+        const filename = `pdfs/${Date.now()}_${safeName}`;
+        const body = { message: 'Adjunto PDF ' + file.name, content: base64 };
+        const res = await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${filename}`, { method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body) });
+        if(!res.ok) throw new Error('Error subiendo PDF: ' + res.status);
+        const json = await res.json();
+        resolve(json.content.download_url);
+      } catch(err){ reject(err); }
+    };
+    reader.onerror = () => reject(new Error('Error leyendo el archivo'));
+    reader.readAsDataURL(file);
+  });
+}
+
+let DB = { proveedores:[], presupuestos:[], facturas:[], pagos:[] };
+let _eid=null, _mtype=null, _confirmCb=null;
+let _saveTimer=null;
+const SECS   = ['dashboard','proveedores','presupuestos','facturas','pagos'];
+const TITLES = { dashboard:'Dashboard',proveedores:'Proveedores',presupuestos:'Presupuestos',facturas:'Facturas',pagos:'Pagos' };
+
 function fmt(n){ return new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(n||0); }
 function dt(d){ if(!d)return '—'; try{ return new Date(d+'T12:00:00').toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}); }catch(e){ return d; } }
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -379,79 +490,210 @@ function pagadoF(fid){ return DB.pagos.filter(p=>p.facturaId===fid).reduce((s,p)
 function estFac(f){ const p=pagadoF(f.id); if(p<=0)return 'pendiente'; if(p>=(+f.importe))return 'pagada'; return 'parcial'; }
 function isMob(){ return window.innerWidth<768; }
 function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
-function bdg(est){ const m={pendiente:['b-pen','Pendiente'],pagada:['b-pag','Pagada'],parcial:['b-par','Parcial'],vencida:['b-vec','Vencida'],aprobado:['b-apr','Aprobado'],en_curso:['b-cur','En curso'],cerrado:['b-cer','Cerrado']}; const[c,l]=m[est]||['b-pen',est]; return `<span class="badge ${c}">${l}</span>`; }
+function bdg(est){
+  const m={pendiente:['b-pen','Pendiente'],pagada:['b-pag','Pagada'],parcial:['b-par','Parcial'],vencida:['b-vec','Vencida'],aprobado:['b-apr','Aprobado'],en_curso:['b-cur','En curso'],cerrado:['b-cer','Cerrado']};
+  const[c,l]=m[est]||['b-pen',est];
+  return `<span class="badge ${c}">${l}</span>`;
+}
 function cardClass(est){ return {pendiente:'pen',pagada:'pag',parcial:'par',vencida:'err'}[est]||''; }
 function showLoad(txt){ document.getElementById('loading-overlay').classList.remove('hide'); if(txt)document.getElementById('ld-txt').textContent=txt; }
 function hideLoad(){ document.getElementById('loading-overlay').classList.add('hide'); }
-function setSaveBar(state,msg){ const el=document.getElementById('save-bar'); el.className=state; el.textContent=msg||''; if(state==='saved') setTimeout(()=>{ el.className=''; },2000); }
+function setSaveBar(state, msg){
+  const el=document.getElementById('save-bar');
+  el.className=state; el.textContent=msg||'';
+  if(state==='saved') setTimeout(()=>{ el.className=''; },2000);
+}
+
 async function initApp(){
   showLoad('Cargando datos desde GitHub…');
-  try { DB=await ghLoad(); document.getElementById('sb-reponame').textContent=CFG.user+'/'+CFG.repo; }
-  catch(e){ toast('Error al cargar datos: '+e.message,true); }
+  try { DB = await ghLoad(); document.getElementById('sb-reponame').textContent = CFG.user+'/'+CFG.repo; }
+  catch(e){ toast('Error al cargar datos: '+e.message, true); }
   hideLoad(); renderDash();
 }
+
 async function syncNow(){
-  showLoad('Sincronizando…');
-  try { DB=await ghLoad(); render(curSec()); toast('Sincronizado ✓'); }
-  catch(e){ toast('Error: '+e.message,true); }
+  showLoad('Sincronizando con GitHub…');
+  try { DB = await ghLoad(); render(curSec()); toast('Sincronizado ✓'); }
+  catch(e){ toast('Error al sincronizar: '+e.message, true); }
   hideLoad();
 }
+
 function schedSave(){
-  clearTimeout(_saveTimer); setSaveBar('saving','⏳ Guardando en GitHub…');
-  _saveTimer=setTimeout(async()=>{
+  clearTimeout(_saveTimer);
+  setSaveBar('saving','⏳ Guardando en GitHub…');
+  _saveTimer = setTimeout(async()=>{
     try { await ghSave(DB); setSaveBar('saved','✅ Guardado en GitHub'); }
-    catch(e){ setSaveBar('error','❌ Error: '+e.message); toast('Error al guardar: '+e.message,true); }
-  },1000);
+    catch(e){ setSaveBar('error','❌ Error al guardar: '+e.message); toast('Error al guardar: '+e.message, true); }
+  }, 1000);
 }
+
 function goTo(name){
-  SECS.forEach(s=>{ document.getElementById('sec-'+s).classList.toggle('on',s===name); const ni=document.querySelectorAll('.nav-item')[SECS.indexOf(s)]; if(ni)ni.classList.toggle('on',s===name); const bi=document.getElementById('bn-'+s); if(bi)bi.classList.toggle('on',s===name); });
-  document.getElementById('topbar-title').textContent=TITLES[name]; render(name);
+  SECS.forEach(s=>{
+    document.getElementById('sec-'+s).classList.toggle('on',s===name);
+    const ni=document.querySelectorAll('.nav-item')[SECS.indexOf(s)]; if(ni)ni.classList.toggle('on',s===name);
+    const bi=document.getElementById('bn-'+s); if(bi)bi.classList.toggle('on',s===name);
+  });
+  document.getElementById('topbar-title').textContent=TITLES[name];
+  render(name);
 }
-function render(name){ if(name==='dashboard')renderDash(); if(name==='proveedores')renderProv(); if(name==='presupuestos'){fillSel('fp-prov');renderPre();} if(name==='facturas'){fillSel('ff-prov');renderFac();} if(name==='pagos'){fillSel('fpag-prov');renderPag();} }
-function fillSel(id){ const el=document.getElementById(id); if(!el)return; const v=el.value; el.innerHTML='<option value="">Todos los proveedores</option>'+DB.proveedores.map(p=>`<option value="${p.id}"${v===p.id?' selected':''}>${esc(p.nombre)}</option>`).join(''); }
+function render(name){
+  if(name==='dashboard') renderDash();
+  if(name==='proveedores') renderProv();
+  if(name==='presupuestos'){fillSel('fp-prov');renderPre();}
+  if(name==='facturas'){fillSel('ff-prov');renderFac();}
+  if(name==='pagos'){fillSel('fpag-prov');renderPag();}
+}
+function fillSel(id){
+  const el=document.getElementById(id); if(!el)return;
+  const v=el.value;
+  el.innerHTML='<option value="">Todos los proveedores</option>'+DB.proveedores.map(p=>`<option value="${p.id}"${v===p.id?' selected':''}>${esc(p.nombre)}</option>`).join('');
+}
 function curSec(){ return SECS.find(s=>document.getElementById('sec-'+s).classList.contains('on'))||'dashboard'; }
 function fabClick(){ const s=curSec(); if(s==='dashboard')return; const m={proveedores:'proveedor',presupuestos:'presupuesto',facturas:'factura',pagos:'pago'}; openModal(m[s]); }
+
 function renderDash(){
-  const tPre=DB.presupuestos.reduce((s,p)=>s+(+p.importe||0),0),tFac=DB.facturas.reduce((s,f)=>s+(+f.importe||0),0),tPag=DB.pagos.reduce((s,p)=>s+(+p.importe||0),0),pend=tFac-tPag;
-  document.getElementById('kpi-cards').innerHTML=`<div class="kpi-card"><div class="kpi-lbl">Proveedores</div><div class="kpi-val">${DB.proveedores.length}</div><div class="kpi-sub">${DB.presupuestos.length} presupuestos</div></div><div class="kpi-card inf"><div class="kpi-lbl">Presupuestado</div><div class="kpi-val">${fmt(tPre)}</div></div><div class="kpi-card warn"><div class="kpi-lbl">Facturado</div><div class="kpi-val">${fmt(tFac)}</div><div class="kpi-sub">${DB.facturas.length} facturas</div></div><div class="kpi-card ok"><div class="kpi-lbl">Total Pagado</div><div class="kpi-val">${fmt(tPag)}</div><div class="kpi-sub">${DB.pagos.length} pagos</div></div><div class="kpi-card err"><div class="kpi-lbl">Pendiente</div><div class="kpi-val">${fmt(pend)}</div></div>`;
-  const rows=DB.proveedores.map(pv=>{ const pre=DB.presupuestos.filter(p=>p.proveedorId===pv.id).reduce((s,p)=>s+(+p.importe||0),0),fac=DB.facturas.filter(f=>f.proveedorId===pv.id).reduce((s,f)=>s+(+f.importe||0),0),pag=DB.pagos.filter(p=>p.proveedorId===pv.id).reduce((s,p)=>s+(+p.importe||0),0),pd=fac-pag,pct=fac>0?Math.min(100,Math.round(pag/fac*100)):0; return`<tr><td class="fw">${esc(pv.nombre)}</td><td>${fmt(pre)}</td><td>${fmt(fac)}</td><td class="tg fw">${fmt(pag)}</td><td class="${pd>0?'tr':'tg'} fw">${fmt(pd)}</td><td><div style="display:flex;align-items:center;gap:6px"><div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:${pct}%"></div></div><span style="font-size:10px;color:var(--mu)">${pct}%</span></div></td></tr>`; }).join('');
+  const tPre=DB.presupuestos.reduce((s,p)=>s+(+p.importe||0),0);
+  const tFac=DB.facturas.reduce((s,f)=>s+(+f.importe||0),0);
+  const tPag=DB.pagos.reduce((s,p)=>s+(+p.importe||0),0);
+  const pend=tFac-tPag;
+  document.getElementById('kpi-cards').innerHTML=`
+    <div class="kpi-card"><div class="kpi-lbl">Proveedores</div><div class="kpi-val">${DB.proveedores.length}</div><div class="kpi-sub">${DB.presupuestos.length} presupuestos</div></div>
+    <div class="kpi-card inf"><div class="kpi-lbl">Presupuestado</div><div class="kpi-val">${fmt(tPre)}</div></div>
+    <div class="kpi-card warn"><div class="kpi-lbl">Facturado</div><div class="kpi-val">${fmt(tFac)}</div><div class="kpi-sub">${DB.facturas.length} facturas</div></div>
+    <div class="kpi-card ok"><div class="kpi-lbl">Total Pagado</div><div class="kpi-val">${fmt(tPag)}</div><div class="kpi-sub">${DB.pagos.length} pagos</div></div>
+    <div class="kpi-card err"><div class="kpi-lbl">Pendiente</div><div class="kpi-val">${fmt(pend)}</div></div>`;
+  const rows=DB.proveedores.map(pv=>{
+    const pre=DB.presupuestos.filter(p=>p.proveedorId===pv.id).reduce((s,p)=>s+(+p.importe||0),0);
+    const fac=DB.facturas.filter(f=>f.proveedorId===pv.id).reduce((s,f)=>s+(+f.importe||0),0);
+    const pag=DB.pagos.filter(p=>p.proveedorId===pv.id).reduce((s,p)=>s+(+p.importe||0),0);
+    const pd=fac-pag; const pct=fac>0?Math.min(100,Math.round(pag/fac*100)):0;
+    return`<tr><td class="fw">${esc(pv.nombre)}</td><td>${fmt(pre)}</td><td>${fmt(fac)}</td><td class="tg fw">${fmt(pag)}</td><td class="${pd>0?'tr':'tg'} fw">${fmt(pd)}</td>
+      <td><div style="display:flex;align-items:center;gap:6px"><div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:${pct}%"></div></div><span style="font-size:10px;color:var(--mu)">${pct}%</span></div></td></tr>`;
+  }).join('');
   document.getElementById('dash-tbl').innerHTML=rows||`<tr><td colspan="6" class="empty-row"><div class="ei">📊</div><p>Añade proveedores para ver el resumen</p></td></tr>`;
-  const mobR=DB.proveedores.map(pv=>{ const fac=DB.facturas.filter(f=>f.proveedorId===pv.id).reduce((s,f)=>s+(+f.importe||0),0),pag=DB.pagos.filter(p=>p.proveedorId===pv.id).reduce((s,p)=>s+(+p.importe||0),0),pd=fac-pag,pct=fac>0?Math.min(100,Math.round(pag/fac*100)):0; return`<div class="item-card"><div class="ic-top"><div><div class="ic-title">${esc(pv.nombre)}</div><div class="ic-sub">${esc(pv.cif||'—')}</div></div></div><div class="ic-row"><span class="ic-meta">Facturado ${fmt(fac)}</span><span class="ic-amt ${pd>0?'tr':'tg'}">${fmt(pd)} pend.</span></div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div><div style="font-size:10px;color:var(--mu);margin-top:3px;text-align:right">${fmt(pag)} pagado · ${pct}%</div></div>`; }).join('');
+  const mobR=DB.proveedores.map(pv=>{
+    const fac=DB.facturas.filter(f=>f.proveedorId===pv.id).reduce((s,f)=>s+(+f.importe||0),0);
+    const pag=DB.pagos.filter(p=>p.proveedorId===pv.id).reduce((s,p)=>s+(+p.importe||0),0);
+    const pd=fac-pag; const pct=fac>0?Math.min(100,Math.round(pag/fac*100)):0;
+    return`<div class="item-card"><div class="ic-top"><div><div class="ic-title">${esc(pv.nombre)}</div><div class="ic-sub">${esc(pv.cif||'—')}</div></div></div>
+      <div class="ic-row"><span class="ic-meta">Facturado ${fmt(fac)}</span><span class="ic-amt ${pd>0?'tr':'tg'}">${fmt(pd)} pend.</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div style="font-size:10px;color:var(--mu);margin-top:3px;text-align:right">${fmt(pag)} pagado · ${pct}%</div></div>`;
+  }).join('');
   document.getElementById('dash-mob-wrap').innerHTML=mobR||'';
   document.getElementById('dash-desk-wrap').style.display=isMob()?'none':'block';
   document.getElementById('dash-mob-wrap').style.display=isMob()?'flex':'none';
   const pf=DB.facturas.filter(f=>estFac(f)!=='pagada').sort((a,b)=>(a.vencimiento||'9').localeCompare(b.vencimiento||'9'));
-  document.getElementById('dash-pend').innerHTML=pf.map(f=>{ const pg=pagadoF(f.id),pd2=(+f.importe||0)-pg,vcd=f.vencimiento&&new Date(f.vencimiento+'T12:00:00')<new Date(); return`<tr><td class="fw">${esc(f.numero||'—')}</td><td>${esc(provN(f.proveedorId))}</td><td style="text-align:right">${fmt(f.importe)}</td><td style="text-align:right" class="tg">${fmt(pg)}</td><td style="text-align:right" class="${vcd?'tr fw':'to fw'}">${fmt(pd2)}</td><td>${vcd?bdg('vencida'):bdg(estFac(f))}</td></tr>`; }).join('')||`<tr><td colspan="6" class="empty-row"><div class="ei">✅</div><p>Sin facturas pendientes</p></td></tr>`;
+  document.getElementById('dash-pend').innerHTML=pf.map(f=>{
+    const pg=pagadoF(f.id); const pd2=(+f.importe||0)-pg;
+    const vcd=f.vencimiento&&new Date(f.vencimiento+'T12:00:00')<new Date();
+    return`<tr><td class="fw">${esc(f.numero||'—')}</td><td>${esc(provN(f.proveedorId))}</td>
+      <td style="text-align:right">${fmt(f.importe)}</td><td style="text-align:right" class="tg">${fmt(pg)}</td>
+      <td style="text-align:right" class="${vcd?'tr fw':'to fw'}">${fmt(pd2)}</td><td>${vcd?bdg('vencida'):bdg(estFac(f))}</td></tr>`;
+  }).join('')||`<tr><td colspan="6" class="empty-row"><div class="ei">✅</div><p>Sin facturas pendientes</p></td></tr>`;
 }
+
 function renderProv(){
   const q=(document.getElementById('srch-prov')?.value||'').toLowerCase();
   const list=DB.proveedores.filter(p=>!q||p.nombre.toLowerCase().includes(q)||(p.cif||'').toLowerCase().includes(q));
-  document.getElementById('tbl-prov').innerHTML=list.length?list.map(p=>`<tr><td class="fw">${esc(p.nombre)}</td><td class="mu">${esc(p.cif||'—')}</td><td>${esc(p.contacto||'—')}</td><td>${esc(p.telefono||'—')}</td><td>${p.email?`<a href="mailto:${esc(p.email)}" style="color:var(--p)">${esc(p.email)}</a>`:'—'}</td><td style="white-space:nowrap"><button class="btn btn-o btn-xs" onclick="openModal('proveedor','${p.id}')">✏️</button> <button class="btn btn-d btn-xs" onclick="delItem('proveedores','${p.id}')">🗑️</button></td></tr>`).join(''):`<tr><td colspan="6" class="empty-row"><div class="ei">🏢</div><p>Sin proveedores.</p></td></tr>`;
+  document.getElementById('tbl-prov').innerHTML=list.length?list.map(p=>`
+    <tr><td class="fw">${esc(p.nombre)}</td><td class="mu">${esc(p.cif||'—')}</td><td>${esc(p.contacto||'—')}</td>
+    <td>${esc(p.telefono||'—')}</td><td>${p.email?`<a href="mailto:${esc(p.email)}" style="color:var(--p)">${esc(p.email)}</a>`:'—'}</td>
+    <td style="white-space:nowrap"><button class="btn btn-o btn-xs" onclick="openModal('proveedor','${p.id}')">✏️</button> <button class="btn btn-d btn-xs" onclick="delItem('proveedores','${p.id}')">🗑️</button></td></tr>`).join('')
+    :`<tr><td colspan="6" class="empty-row"><div class="ei">🏢</div><p>Sin proveedores.</p></td></tr>`;
   document.getElementById('prov-desk').style.display=isMob()?'none':'block';
-  document.getElementById('mob-prov').innerHTML=isMob()?(list.length?list.map(p=>`<div class="item-card"><div class="ic-top"><div><div class="ic-title">${esc(p.nombre)}</div><div class="ic-sub">${esc(p.cif||'')}${p.contacto?' · '+esc(p.contacto):''}</div></div></div>${p.telefono?`<div class="ic-meta" style="margin-top:6px">📞 ${esc(p.telefono)}</div>`:''}${p.email?`<div class="ic-meta">✉️ <a href="mailto:${esc(p.email)}" style="color:var(--p)">${esc(p.email)}</a></div>`:''}<div class="ic-actions"><button class="btn btn-o btn-sm" style="flex:1;justify-content:center" onclick="openModal('proveedor','${p.id}')">✏️ Editar</button><button class="btn btn-d btn-sm" onclick="delItem('proveedores','${p.id}')">🗑️</button></div></div>`).join(''):`<div class="item-card" style="text-align:center;padding:32px"><p style="color:var(--mu);font-size:13px">Sin proveedores.</p></div>`):'';
+  document.getElementById('mob-prov').innerHTML=isMob()?(list.length?list.map(p=>`
+    <div class="item-card">
+      <div class="ic-top"><div><div class="ic-title">${esc(p.nombre)}</div><div class="ic-sub">${esc(p.cif||'')}${p.contacto?' · '+esc(p.contacto):''}</div></div></div>
+      ${p.telefono?`<div class="ic-meta" style="margin-top:6px">📞 ${esc(p.telefono)}</div>`:''}
+      ${p.email?`<div class="ic-meta">✉️ <a href="mailto:${esc(p.email)}" style="color:var(--p)">${esc(p.email)}</a></div>`:''}
+      <div class="ic-actions"><button class="btn btn-o btn-sm" style="flex:1;justify-content:center" onclick="openModal('proveedor','${p.id}')">✏️ Editar</button><button class="btn btn-d btn-sm" onclick="delItem('proveedores','${p.id}')">🗑️</button></div>
+    </div>`).join(''):`<div class="item-card" style="text-align:center;padding:32px"><p style="color:var(--mu);font-size:13px">Sin proveedores.</p></div>`):'';
 }
+
 function renderPre(){
-  const pf=document.getElementById('fp-prov')?.value||'',ef=document.getElementById('fp-est')?.value||'';
-  let list=DB.presupuestos; if(pf)list=list.filter(p=>p.proveedorId===pf); if(ef)list=list.filter(p=>p.estado===ef);
-  document.getElementById('tbl-pre').innerHTML=list.length?list.map(p=>`<tr><td class="mu" style="font-size:10px">${esc(p.numero||'—')}</td><td class="fw">${esc(provN(p.proveedorId))}</td><td>${esc(p.obra||'—')}</td><td style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--mu)">${esc(p.descripcion||'—')}</td><td style="text-align:right" class="fw">${fmt(p.importe)}</td><td>${dt(p.fecha)}</td><td>${bdg(p.estado||'pendiente')}</td><td style="white-space:nowrap"><button class="btn btn-o btn-xs" onclick="openModal('presupuesto','${p.id}')">✏️</button> <button class="btn btn-d btn-xs" onclick="delItem('presupuestos','${p.id}')">🗑️</button></td></tr>`).join(''):`<tr><td colspan="8" class="empty-row"><div class="ei">📋</div><p>Sin presupuestos.</p></td></tr>`;
+  const pf=document.getElementById('fp-prov')?.value||'';
+  const ef=document.getElementById('fp-est')?.value||'';
+  let list=DB.presupuestos;
+  if(pf)list=list.filter(p=>p.proveedorId===pf);
+  if(ef)list=list.filter(p=>p.estado===ef);
+  document.getElementById('tbl-pre').innerHTML=list.length?list.map(p=>`
+    <tr><td class="mu" style="font-size:10px">${esc(p.numero||'—')}</td><td class="fw">${esc(provN(p.proveedorId))}</td>
+    <td>${esc(p.obra||'—')}</td><td style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--mu)">${esc(p.descripcion||'—')}</td>
+    <td style="text-align:right" class="fw">${fmt(p.importe)}</td><td>${dt(p.fecha)}</td><td>${bdg(p.estado||'pendiente')}</td>
+    <td style="white-space:nowrap"><button class="btn btn-o btn-xs" onclick="openModal('presupuesto','${p.id}')">✏️</button> <button class="btn btn-d btn-xs" onclick="delItem('presupuestos','${p.id}')">🗑️</button></td></tr>`).join('')
+    :`<tr><td colspan="8" class="empty-row"><div class="ei">📋</div><p>Sin presupuestos.</p></td></tr>`;
   document.getElementById('pre-desk').style.display=isMob()?'none':'block';
-  document.getElementById('mob-pre').innerHTML=isMob()?(list.length?list.map(p=>`<div class="item-card"><div class="ic-top"><div><div class="ic-title">${esc(p.obra||'Sin nombre')}</div><div class="ic-sub">${esc(provN(p.proveedorId))} ${p.numero?'· '+esc(p.numero):''}</div></div>${bdg(p.estado||'pendiente')}</div><div class="ic-row"><span class="ic-meta">${dt(p.fecha)}</span><span class="ic-amt">${fmt(p.importe)}</span></div><div class="ic-actions"><button class="btn btn-o btn-sm" style="flex:1;justify-content:center" onclick="openModal('presupuesto','${p.id}')">✏️ Editar</button><button class="btn btn-d btn-sm" onclick="delItem('presupuestos','${p.id}')">🗑️</button></div></div>`).join(''):`<div class="item-card" style="text-align:center;padding:32px"><p style="color:var(--mu);font-size:13px">Sin presupuestos.</p></div>`):'';
+  document.getElementById('mob-pre').innerHTML=isMob()?(list.length?list.map(p=>`
+    <div class="item-card">
+      <div class="ic-top"><div><div class="ic-title">${esc(p.obra||'Sin nombre')}</div><div class="ic-sub">${esc(provN(p.proveedorId))} ${p.numero?'· '+esc(p.numero):''}</div></div>${bdg(p.estado||'pendiente')}</div>
+      <div class="ic-row"><span class="ic-meta">${dt(p.fecha)}</span><span class="ic-amt">${fmt(p.importe)}</span></div>
+      <div class="ic-actions"><button class="btn btn-o btn-sm" style="flex:1;justify-content:center" onclick="openModal('presupuesto','${p.id}')">✏️ Editar</button><button class="btn btn-d btn-sm" onclick="delItem('presupuestos','${p.id}')">🗑️</button></div>
+    </div>`).join(''):`<div class="item-card" style="text-align:center;padding:32px"><p style="color:var(--mu);font-size:13px">Sin presupuestos.</p></div>`):'';
 }
+
 function renderFac(){
-  const pf=document.getElementById('ff-prov')?.value||'',ef=document.getElementById('ff-est')?.value||'';
-  let list=DB.facturas; if(pf)list=list.filter(f=>f.proveedorId===pf); if(ef)list=list.filter(f=>estFac(f)===ef);
-  document.getElementById('tbl-fac').innerHTML=list.length?list.map(f=>{ const pg=pagadoF(f.id),pd=(+f.importe||0)-pg,est=estFac(f),vcd=f.vencimiento&&new Date(f.vencimiento+'T12:00:00')<new Date()&&est!=='pagada'; return`<tr><td class="fw">${esc(f.numero||'—')}</td><td>${esc(provN(f.proveedorId))}</td><td class="mu" style="font-size:10px">${esc(preL(f.presupuestoId))}</td><td>${dt(f.fecha)}</td><td class="${vcd?'tr fw':''}">${dt(f.vencimiento)}</td><td style="text-align:right" class="fw">${fmt(f.importe)}</td><td style="text-align:right" class="tg">${fmt(pg)}</td><td style="text-align:right" class="${pd>0?(vcd?'tr':'to'):''} fw">${fmt(pd)}</td><td>${vcd?bdg('vencida'):bdg(est)}</td><td style="white-space:nowrap"><button class="btn btn-s btn-xs" onclick="openModal('pago',null,'${f.id}')" title="Pagar">💳</button> <button class="btn btn-o btn-xs" onclick="openModal('factura','${f.id}')">✏️</button> <button class="btn btn-d btn-xs" onclick="delItem('facturas','${f.id}')">🗑️</button></td></tr>`; }).join(''):`<tr><td colspan="10" class="empty-row"><div class="ei">🧾</div><p>Sin facturas.</p></td></tr>`;
+  const pf=document.getElementById('ff-prov')?.value||'';
+  const ef=document.getElementById('ff-est')?.value||'';
+  let list=DB.facturas;
+  if(pf)list=list.filter(f=>f.proveedorId===pf);
+  if(ef)list=list.filter(f=>estFac(f)===ef);
+  document.getElementById('tbl-fac').innerHTML=list.length?list.map(f=>{
+    const pg=pagadoF(f.id); const pd=(+f.importe||0)-pg; const est=estFac(f);
+    const vcd=f.vencimiento&&new Date(f.vencimiento+'T12:00:00')<new Date()&&est!=='pagada';
+    return`<tr><td class="fw">${esc(f.numero||'—')}</td><td>${esc(provN(f.proveedorId))}</td>
+      <td class="mu" style="font-size:10px">${esc(preL(f.presupuestoId))}</td>
+      <td>${dt(f.fecha)}</td><td class="${vcd?'tr fw':''}">${dt(f.vencimiento)}</td>
+      <td style="text-align:right" class="fw">${fmt(f.importe)}</td>
+      <td style="text-align:right" class="tg">${fmt(pg)}</td>
+      <td style="text-align:right" class="${pd>0?(vcd?'tr':'to'):''} fw">${fmt(pd)}</td>
+      <td>${vcd?bdg('vencida'):bdg(est)}</td>
+      <td style="white-space:nowrap">${f.pdfUrl?`<a href="${esc(f.pdfUrl)}" target="_blank" class="btn btn-o btn-xs" title="Ver PDF">📄</a> `:''}
+      <button class="btn btn-s btn-xs" onclick="openModal('pago',null,'${f.id}')" title="Pagar">💳</button> <button class="btn btn-o btn-xs" onclick="openModal('factura','${f.id}')">✏️</button> <button class="btn btn-d btn-xs" onclick="delItem('facturas','${f.id}')">🗑️</button></td></tr>`;
+  }).join(''):`<tr><td colspan="10" class="empty-row"><div class="ei">🧾</div><p>Sin facturas.</p></td></tr>`;
   document.getElementById('fac-desk').style.display=isMob()?'none':'block';
-  document.getElementById('mob-fac').innerHTML=isMob()?(list.length?list.map(f=>{ const pg=pagadoF(f.id),pd=(+f.importe||0)-pg,est=estFac(f),vcd=f.vencimiento&&new Date(f.vencimiento+'T12:00:00')<new Date()&&est!=='pagada',pct=(+f.importe)>0?Math.min(100,Math.round(pg/(+f.importe)*100)):0; return`<div class="item-card ${cardClass(vcd?'vencida':est)}"><div class="ic-top"><div><div class="ic-title">${esc(f.numero||'Sin número')}</div><div class="ic-sub">${esc(provN(f.proveedorId))}</div></div>${vcd?bdg('vencida'):bdg(est)}</div><div class="ic-row"><span class="ic-meta">📅 ${dt(f.fecha)}${f.vencimiento?' · vence '+dt(f.vencimiento):''}</span><span class="ic-amt">${fmt(f.importe)}</span></div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%;${vcd?'background:var(--err)':''}"></div></div><div style="font-size:10px;color:var(--mu);margin-top:3px;display:flex;justify-content:space-between"><span class="tg">Pagado: ${fmt(pg)}</span><span class="${pd>0?(vcd?'tr':'to'):''}">Pendiente: ${fmt(pd)}</span></div><div class="ic-actions"><button class="btn btn-s btn-sm" style="flex:2;justify-content:center" onclick="openModal('pago',null,'${f.id}')">💳 Registrar pago</button><button class="btn btn-o btn-sm" onclick="openModal('factura','${f.id}')">✏️</button><button class="btn btn-d btn-sm" onclick="delItem('facturas','${f.id}')">🗑️</button></div></div>`; }).join(''):`<div class="item-card" style="text-align:center;padding:32px"><p style="color:var(--mu);font-size:13px">Sin facturas.</p></div>`):'';
+  document.getElementById('mob-fac').innerHTML=isMob()?(list.length?list.map(f=>{
+    const pg=pagadoF(f.id); const pd=(+f.importe||0)-pg; const est=estFac(f);
+    const vcd=f.vencimiento&&new Date(f.vencimiento+'T12:00:00')<new Date()&&est!=='pagada';
+    const pct=(+f.importe)>0?Math.min(100,Math.round(pg/(+f.importe)*100)):0;
+    return`<div class="item-card ${cardClass(vcd?'vencida':est)}">
+      <div class="ic-top"><div><div class="ic-title">${esc(f.numero||'Sin número')}</div><div class="ic-sub">${esc(provN(f.proveedorId))}</div></div>${vcd?bdg('vencida'):bdg(est)}</div>
+      <div class="ic-row"><span class="ic-meta">📅 ${dt(f.fecha)}${f.vencimiento?' · vence '+dt(f.vencimiento):''}</span><span class="ic-amt">${fmt(f.importe)}</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;${vcd?'background:var(--err)':''}"></div></div>
+      <div style="font-size:10px;color:var(--mu);margin-top:3px;display:flex;justify-content:space-between"><span class="tg">Pagado: ${fmt(pg)}</span><span class="${pd>0?(vcd?'tr':'to'):''}">Pendiente: ${fmt(pd)}</span></div>
+      <div class="ic-actions"><button class="btn btn-s btn-sm" style="flex:2;justify-content:center" onclick="openModal('pago',null,'${f.id}')">💳 Registrar pago</button>${f.pdfUrl?`<a href="${esc(f.pdfUrl)}" target="_blank" class="btn btn-o btn-sm" title="Ver PDF">📄</a>`:''}<button class="btn btn-o btn-sm" onclick="openModal('factura','${f.id}')">✏️</button><button class="btn btn-d btn-sm" onclick="delItem('facturas','${f.id}')">🗑️</button></div>
+    </div>`;
+  }).join(''):`<div class="item-card" style="text-align:center;padding:32px"><p style="color:var(--mu);font-size:13px">Sin facturas.</p></div>`):'';
 }
+
 function renderPag(){
-  const pf=document.getElementById('fpag-prov')?.value||'',mf=document.getElementById('fpag-mes')?.value||'';
-  let list=[...DB.pagos]; if(pf)list=list.filter(p=>p.proveedorId===pf); if(mf)list=list.filter(p=>p.fecha&&p.fecha.slice(0,7)===mf);
-  list.sort((a,b)=>(b.fecha||'').localeCompare(a.fecha||'')); const tot=list.reduce((s,p)=>s+(+p.importe||0),0);
-  document.getElementById('tbl-pag').innerHTML=list.length?list.map(p=>`<tr><td>${dt(p.fecha)}</td><td class="fw">${esc(provN(p.proveedorId))}</td><td class="mu" style="font-size:10px">${esc(facL(p.facturaId))}</td><td style="text-align:right" class="tg fw">${fmt(p.importe)}</td><td>${esc(p.metodo||'—')}</td><td class="mu" style="font-size:10px">${esc(p.referencia||'—')}</td><td style="white-space:nowrap"><button class="btn btn-o btn-xs" onclick="openModal('pago','${p.id}')">✏️</button> <button class="btn btn-d btn-xs" onclick="delItem('pagos','${p.id}')">🗑️</button></td></tr>`).join('')+`<tr style="background:#f8fafc"><td colspan="3" class="fw mu" style="font-size:10px;text-transform:uppercase;letter-spacing:.04em">Total</td><td style="text-align:right" class="fw">${fmt(tot)}</td><td colspan="3"></td></tr>`:`<tr><td colspan="7" class="empty-row"><div class="ei">💳</div><p>Sin pagos.</p></td></tr>`;
+  const pf=document.getElementById('fpag-prov')?.value||'';
+  const mf=document.getElementById('fpag-mes')?.value||'';
+  let list=[...DB.pagos];
+  if(pf)list=list.filter(p=>p.proveedorId===pf);
+  if(mf)list=list.filter(p=>p.fecha&&p.fecha.slice(0,7)===mf);
+  list.sort((a,b)=>(b.fecha||'').localeCompare(a.fecha||''));
+  const tot=list.reduce((s,p)=>s+(+p.importe||0),0);
+  document.getElementById('tbl-pag').innerHTML=list.length?list.map(p=>`
+    <tr><td>${dt(p.fecha)}</td><td class="fw">${esc(provN(p.proveedorId))}</td>
+    <td class="mu" style="font-size:10px">${esc(facL(p.facturaId))}</td>
+    <td style="text-align:right" class="tg fw">${fmt(p.importe)}</td>
+    <td>${esc(p.metodo||'—')}</td><td class="mu" style="font-size:10px">${esc(p.referencia||'—')}</td>
+    <td style="white-space:nowrap">${p.pdfUrl?`<a href="${esc(p.pdfUrl)}" target="_blank" class="btn btn-o btn-xs" title="Ver PDF">📄</a> `:''}
+    <button class="btn btn-o btn-xs" onclick="openModal('pago','${p.id}')">✏️</button> <button class="btn btn-d btn-xs" onclick="delItem('pagos','${p.id}')">🗑️</button></td></tr>`).join('')+
+    `<tr style="background:#f8fafc"><td colspan="3" class="fw mu" style="font-size:10px;text-transform:uppercase;letter-spacing:.04em">Total</td><td style="text-align:right" class="fw">${fmt(tot)}</td><td colspan="3"></td></tr>`
+    :`<tr><td colspan="7" class="empty-row"><div class="ei">💳</div><p>Sin pagos.</p></td></tr>`;
   document.getElementById('pag-desk').style.display=isMob()?'none':'block';
-  document.getElementById('mob-pag').innerHTML=isMob()?(list.length?[...list.map(p=>`<div class="item-card ok"><div class="ic-top"><div><div class="ic-title">${fmt(p.importe)}</div><div class="ic-sub">${esc(provN(p.proveedorId))}${p.facturaId?' · Fac. '+esc(facL(p.facturaId)):''}</div></div><span style="font-size:12px;color:var(--mu)">${dt(p.fecha)}</span></div>${p.metodo?`<div class="ic-meta" style="margin-top:6px">💳 ${esc(p.metodo)}${p.referencia?' · '+esc(p.referencia):''}</div>`:''}<div class="ic-actions"><button class="btn btn-o btn-sm" style="flex:1;justify-content:center" onclick="openModal('pago','${p.id}')">✏️ Editar</button><button class="btn btn-d btn-sm" onclick="delItem('pagos','${p.id}')">🗑️</button></div></div>`), [`<div style="background:var(--wh);border-radius:10px;padding:14px;box-shadow:var(--sh);display:flex;justify-content:space-between;align-items:center"><span class="mu" style="font-size:12px;font-weight:700;text-transform:uppercase">Total</span><span class="fw" style="font-size:16px">${fmt(tot)}</span></div>`]].flat().join(''):`<div class="item-card" style="text-align:center;padding:32px"><p style="color:var(--mu);font-size:13px">Sin pagos.</p></div>`):'';
+  document.getElementById('mob-pag').innerHTML=isMob()?(list.length?[...list.map(p=>`
+    <div class="item-card ok">
+      <div class="ic-top"><div><div class="ic-title">${fmt(p.importe)}</div><div class="ic-sub">${esc(provN(p.proveedorId))}${p.facturaId?' · Fac. '+esc(facL(p.facturaId)):''}</div></div><span style="font-size:12px;color:var(--mu)">${dt(p.fecha)}</span></div>
+      ${p.metodo?`<div class="ic-meta" style="margin-top:6px">💳 ${esc(p.metodo)}${p.referencia?' · '+esc(p.referencia):''}</div>`:''}
+      <div class="ic-actions">${p.pdfUrl?`<a href="${esc(p.pdfUrl)}" target="_blank" class="btn btn-o btn-sm" title="Ver PDF">📄 Ver PDF</a>`:''}<button class="btn btn-o btn-sm" style="flex:1;justify-content:center" onclick="openModal('pago','${p.id}')">✏️ Editar</button><button class="btn btn-d btn-sm" onclick="delItem('pagos','${p.id}')">🗑️</button></div>
+    </div>`),
+    [`<div style="background:var(--wh);border-radius:10px;padding:14px;box-shadow:var(--sh);display:flex;justify-content:space-between;align-items:center"><span class="mu" style="font-size:12px;font-weight:700;text-transform:uppercase">Total</span><span class="fw" style="font-size:16px">${fmt(tot)}</span></div>`]
+  ].flat().join(''):`<div class="item-card" style="text-align:center;padding:32px"><p style="color:var(--mu);font-size:13px">Sin pagos.</p></div>`):'';
 }
+
 function openModal(type,id=null,prefacId=null){
   _mtype=type; _eid=id;
   const cols={proveedor:'proveedores',presupuesto:'presupuestos',factura:'facturas',pago:'pagos'};
@@ -466,34 +708,139 @@ function openModal(type,id=null,prefacId=null){
 }
 function closeModal(){ document.getElementById('overlay').classList.remove('open'); document.body.style.overflow=''; _eid=null; _mtype=null; }
 function overlayClick(e){ if(e.target===document.getElementById('overlay'))closeModal(); }
+
 function buildForm(type,d,prefacId){
   const pO=DB.proveedores.map(p=>`<option value="${p.id}"${d.proveedorId===p.id?' selected':''}>${esc(p.nombre)}</option>`).join('');
   const prO='<option value="">— Sin asignar —</option>'+DB.presupuestos.map(p=>`<option value="${p.id}"${d.presupuestoId===p.id?' selected':''}>${esc(provN(p.proveedorId))} · ${esc(p.obra||p.id)}</option>`).join('');
   const fO='<option value="">— Sin asignar —</option>'+DB.facturas.map(f=>{ const s=(prefacId||d.facturaId)===f.id?' selected':''; return`<option value="${f.id}"${s}>${esc(f.numero||f.id)} · ${esc(provN(f.proveedorId))}</option>`; }).join('');
   const mets=['Transferencia bancaria','Cheque','Efectivo','Domiciliación','Pagaré','Otro'];
   const td=new Date().toISOString().split('T')[0];
-  if(type==='proveedor')return`<div class="fg"><label>Nombre Empresa *</label><input id="f-nombre" value="${esc(d.nombre||'')}" placeholder="Nombre de la empresa"></div><div class="fg-row"><div class="fg"><label>CIF / NIF</label><input id="f-cif" value="${esc(d.cif||'')}" placeholder="B12345678"></div><div class="fg"><label>Teléfono</label><input id="f-telefono" type="tel" value="${esc(d.telefono||'')}" placeholder="+34 600 000 000"></div></div><div class="fg"><label>Persona de Contacto</label><input id="f-contacto" value="${esc(d.contacto||'')}" placeholder="Nombre y apellidos"></div><div class="fg"><label>Email</label><input id="f-email" type="email" value="${esc(d.email||'')}" placeholder="empresa@email.com"></div><div class="fg"><label>Notas</label><textarea id="f-notas" rows="2" placeholder="Observaciones...">${esc(d.notas||'')}</textarea></div>`;
-  if(type==='presupuesto')return`<div class="fg-row"><div class="fg"><label>Nº Presupuesto</label><input id="f-numero" value="${esc(d.numero||'')}" placeholder="PRES-001"></div><div class="fg"><label>Proveedor *</label><select id="f-proveedorId"><option value="">Seleccionar...</option>${pO}</select></div></div><div class="fg"><label>Obra / Proyecto *</label><input id="f-obra" value="${esc(d.obra||'')}" placeholder="Nombre de la obra"></div><div class="fg"><label>Descripción</label><textarea id="f-descripcion" rows="2" placeholder="Descripción del trabajo...">${esc(d.descripcion||'')}</textarea></div><div class="fg-row"><div class="fg"><label>Importe (€) *</label><input id="f-importe" type="number" inputmode="decimal" step="0.01" min="0" value="${d.importe||''}" placeholder="0.00"></div><div class="fg"><label>Fecha</label><input id="f-fecha" type="date" value="${d.fecha||td}"></div></div><div class="fg"><label>Estado</label><select id="f-estado"><option value="pendiente"${!d.estado||d.estado==='pendiente'?' selected':''}>Pendiente aprobación</option><option value="aprobado"${d.estado==='aprobado'?' selected':''}>Aprobado</option><option value="en_curso"${d.estado==='en_curso'?' selected':''}>En curso</option><option value="cerrado"${d.estado==='cerrado'?' selected':''}>Cerrado</option></select></div>`;
-  if(type==='factura')return`<div class="fg-row"><div class="fg"><label>Nº Factura *</label><input id="f-numero" value="${esc(d.numero||'')}" placeholder="FAC-001"></div><div class="fg"><label>Proveedor *</label><select id="f-proveedorId"><option value="">Seleccionar...</option>${pO}</select></div></div><div class="fg"><label>Presupuesto relacionado</label><select id="f-presupuestoId">${prO}</select></div><div class="fg-row"><div class="fg"><label>Fecha Factura *</label><input id="f-fecha" type="date" value="${d.fecha||td}"></div><div class="fg"><label>Vencimiento</label><input id="f-vencimiento" type="date" value="${d.vencimiento||''}"></div></div><div class="fg"><label>Importe (€) *</label><input id="f-importe" type="number" inputmode="decimal" step="0.01" min="0" value="${d.importe||''}" placeholder="0.00"></div><div class="fg"><label>Notas</label><textarea id="f-notas" rows="2" placeholder="Observaciones...">${esc(d.notas||'')}</textarea></div>`;
-  if(type==='pago')return`<div class="fg"><label>Proveedor *</label><select id="f-proveedorId"><option value="">Seleccionar...</option>${pO}</select></div><div class="fg"><label>Factura vinculada</label><select id="f-facturaId">${fO}</select></div><div class="fg-row"><div class="fg"><label>Fecha del Pago *</label><input id="f-fecha" type="date" value="${d.fecha||td}"></div><div class="fg"><label>Importe (€) *</label><input id="f-importe" type="number" inputmode="decimal" step="0.01" min="0" value="${d.importe||''}" placeholder="0.00"></div></div><div class="fg-row"><div class="fg"><label>Método de Pago</label><select id="f-metodo"><option value="">Seleccionar...</option>${mets.map(m=>`<option value="${m}"${d.metodo===m?' selected':''}>${m}</option>`).join('')}</select></div><div class="fg"><label>Referencia</label><input id="f-referencia" value="${esc(d.referencia||'')}" placeholder="TRF-00001"></div></div><div class="fg"><label>Notas</label><textarea id="f-notas" rows="2" placeholder="Observaciones...">${esc(d.notas||'')}</textarea></div>`;
+
+  if(type==='proveedor')return`
+    <div class="fg"><label>Nombre Empresa *</label><input id="f-nombre" value="${esc(d.nombre||'')}" placeholder="Nombre de la empresa"></div>
+    <div class="fg-row"><div class="fg"><label>CIF / NIF</label><input id="f-cif" value="${esc(d.cif||'')}" placeholder="B12345678"></div>
+    <div class="fg"><label>Teléfono</label><input id="f-telefono" type="tel" value="${esc(d.telefono||'')}" placeholder="+34 600 000 000"></div></div>
+    <div class="fg"><label>Persona de Contacto</label><input id="f-contacto" value="${esc(d.contacto||'')}" placeholder="Nombre y apellidos"></div>
+    <div class="fg"><label>Email</label><input id="f-email" type="email" value="${esc(d.email||'')}" placeholder="empresa@email.com"></div>
+    <div class="fg"><label>Notas</label><textarea id="f-notas" rows="2" placeholder="Observaciones...">${esc(d.notas||'')}</textarea></div>`;
+
+  if(type==='presupuesto')return`
+    <div class="fg-row"><div class="fg"><label>Nº Presupuesto</label><input id="f-numero" value="${esc(d.numero||'')}" placeholder="PRES-001"></div>
+    <div class="fg"><label>Proveedor *</label><select id="f-proveedorId"><option value="">Seleccionar...</option>${pO}</select></div></div>
+    <div class="fg"><label>Obra / Proyecto *</label><input id="f-obra" value="${esc(d.obra||'')}" placeholder="Nombre de la obra"></div>
+    <div class="fg"><label>Descripción</label><textarea id="f-descripcion" rows="2" placeholder="Descripción del trabajo...">${esc(d.descripcion||'')}</textarea></div>
+    <div class="fg-row"><div class="fg"><label>Importe (€) *</label><input id="f-importe" type="number" inputmode="decimal" step="0.01" min="0" value="${d.importe||''}" placeholder="0.00"></div>
+    <div class="fg"><label>Fecha</label><input id="f-fecha" type="date" value="${d.fecha||td}"></div></div>
+    <div class="fg"><label>Estado</label><select id="f-estado">
+      <option value="pendiente"${!d.estado||d.estado==='pendiente'?' selected':''}>Pendiente aprobación</option>
+      <option value="aprobado"${d.estado==='aprobado'?' selected':''}>Aprobado</option>
+      <option value="en_curso"${d.estado==='en_curso'?' selected':''}>En curso</option>
+      <option value="cerrado"${d.estado==='cerrado'?' selected':''}>Cerrado</option></select></div>`;
+
+  if(type==='factura')return`
+    <div class="fg-row"><div class="fg"><label>Nº Factura *</label><input id="f-numero" value="${esc(d.numero||'')}" placeholder="FAC-001"></div>
+    <div class="fg"><label>Proveedor *</label><select id="f-proveedorId"><option value="">Seleccionar...</option>${pO}</select></div></div>
+    <div class="fg"><label>Presupuesto relacionado</label><select id="f-presupuestoId">${prO}</select></div>
+    <div class="fg-row"><div class="fg"><label>Fecha Factura *</label><input id="f-fecha" type="date" value="${d.fecha||td}"></div>
+    <div class="fg"><label>Vencimiento</label><input id="f-vencimiento" type="date" value="${d.vencimiento||''}"></div></div>
+    <div class="fg"><label>Importe (€) *</label><input id="f-importe" type="number" inputmode="decimal" step="0.01" min="0" value="${d.importe||''}" placeholder="0.00"></div>
+    <div class="fg"><label>Notas</label><textarea id="f-notas" rows="2" placeholder="Observaciones...">${esc(d.notas||'')}</textarea></div>
+    <div class="fg"><label>📎 Adjuntar PDF</label>
+      ${d.pdfUrl?`<div style="margin-bottom:8px;display:flex;align-items:center;gap:8px"><a href="${esc(d.pdfUrl)}" target="_blank" class="btn btn-o btn-xs">📄 Ver PDF actual</a><span style="font-size:11px;color:var(--mu)">Sube otro para reemplazarlo</span></div>`:''}
+      <input type="file" id="f-pdf" accept=".pdf,application/pdf" style="padding:6px;font-size:12px">
+      <div class="fg-hint">Sube el PDF de la factura (máx. 25 MB). Se guardará en tu repositorio GitHub.</div>
+    </div>`;
+
+  if(type==='pago')return`
+    <div class="fg"><label>Proveedor *</label><select id="f-proveedorId"><option value="">Seleccionar...</option>${pO}</select></div>
+    <div class="fg"><label>Factura vinculada</label><select id="f-facturaId">${fO}</select></div>
+    <div class="fg-row"><div class="fg"><label>Fecha del Pago *</label><input id="f-fecha" type="date" value="${d.fecha||td}"></div>
+    <div class="fg"><label>Importe (€) *</label><input id="f-importe" type="number" inputmode="decimal" step="0.01" min="0" value="${d.importe||''}" placeholder="0.00"></div></div>
+    <div class="fg-row"><div class="fg"><label>Método de Pago</label><select id="f-metodo"><option value="">Seleccionar...</option>${mets.map(m=>`<option value="${m}"${d.metodo===m?' selected':''}>${m}</option>`).join('')}</select></div>
+    <div class="fg"><label>Referencia</label><input id="f-referencia" value="${esc(d.referencia||'')}" placeholder="TRF-00001"></div></div>
+    <div class="fg"><label>Notas</label><textarea id="f-notas" rows="2" placeholder="Observaciones...">${esc(d.notas||'')}</textarea></div>
+    <div class="fg"><label>📎 Adjuntar PDF</label>
+      ${d.pdfUrl?`<div style="margin-bottom:8px;display:flex;align-items:center;gap:8px"><a href="${esc(d.pdfUrl)}" target="_blank" class="btn btn-o btn-xs">📄 Ver PDF actual</a><span style="font-size:11px;color:var(--mu)">Sube otro para reemplazarlo</span></div>`:''}
+      <input type="file" id="f-pdf" accept=".pdf,application/pdf" style="padding:6px;font-size:12px">
+      <div class="fg-hint">Sube el justificante de pago en PDF (máx. 25 MB). Se guardará en tu repositorio GitHub.</div>
+    </div>`;
 }
+
 function gv(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
 function gn(id){ return parseFloat(gv(id))||0; }
-function saveModal(){
+
+async function saveModal(){
   const btn=document.getElementById('btn-save'); if(btn){btn.disabled=true;btn.textContent='Guardando…';}
-  if(_mtype==='proveedor'){ if(!gv('f-nombre')){ toast('El nombre es obligatorio',true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; } upsert('proveedores',{id:_eid||uid(),nombre:gv('f-nombre'),cif:gv('f-cif'),contacto:gv('f-contacto'),telefono:gv('f-telefono'),email:gv('f-email'),notas:gv('f-notas')}); }
-  else if(_mtype==='presupuesto'){ if(!gv('f-proveedorId')||!gv('f-obra')||!gn('f-importe')){ toast('Proveedor, obra e importe son obligatorios',true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; } upsert('presupuestos',{id:_eid||uid(),numero:gv('f-numero'),proveedorId:gv('f-proveedorId'),obra:gv('f-obra'),descripcion:gv('f-descripcion'),importe:gn('f-importe'),fecha:gv('f-fecha'),estado:gv('f-estado')}); }
-  else if(_mtype==='factura'){ if(!gv('f-numero')||!gv('f-proveedorId')||!gn('f-importe')){ toast('Nº factura, proveedor e importe son obligatorios',true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; } upsert('facturas',{id:_eid||uid(),numero:gv('f-numero'),proveedorId:gv('f-proveedorId'),presupuestoId:gv('f-presupuestoId'),fecha:gv('f-fecha'),importe:gn('f-importe'),vencimiento:gv('f-vencimiento'),notas:gv('f-notas')}); }
-  else if(_mtype==='pago'){ if(!gv('f-proveedorId')||!gn('f-importe')||!gv('f-fecha')){ toast('Proveedor, importe y fecha son obligatorios',true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; } upsert('pagos',{id:_eid||uid(),proveedorId:gv('f-proveedorId'),facturaId:gv('f-facturaId'),fecha:gv('f-fecha'),importe:gn('f-importe'),metodo:gv('f-metodo'),referencia:gv('f-referencia'),notas:gv('f-notas')}); }
+  let pdfUrl = null;
+  const pdfInput = document.getElementById('f-pdf');
+  if(pdfInput && pdfInput.files && pdfInput.files[0]){
+    const file = pdfInput.files[0];
+    if(file.size > 25*1024*1024){ toast('El PDF supera los 25 MB',true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; }
+    try {
+      if(btn) btn.textContent='📤 Subiendo PDF…';
+      pdfUrl = await ghUploadPDF(file);
+      toast('PDF subido ✓');
+    } catch(e){
+      toast('Error al subir el PDF: '+e.message, true);
+      if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return;
+    }
+  }
+  let obj=null;
+  if(_mtype==='proveedor'){
+    if(!gv('f-nombre')){ toast('El nombre es obligatorio',true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; }
+    obj={id:_eid||uid(),nombre:gv('f-nombre'),cif:gv('f-cif'),contacto:gv('f-contacto'),telefono:gv('f-telefono'),email:gv('f-email'),notas:gv('f-notas')};
+    upsert('proveedores',obj);
+  }else if(_mtype==='presupuesto'){
+    if(!gv('f-proveedorId')||!gv('f-obra')||!gn('f-importe')){ toast('Proveedor, obra e importe son obligatorios',true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; }
+    obj={id:_eid||uid(),numero:gv('f-numero'),proveedorId:gv('f-proveedorId'),obra:gv('f-obra'),descripcion:gv('f-descripcion'),importe:gn('f-importe'),fecha:gv('f-fecha'),estado:gv('f-estado')};
+    upsert('presupuestos',obj);
+  }else if(_mtype==='factura'){
+    if(!gv('f-numero')||!gv('f-proveedorId')||!gn('f-importe')){ toast('Nº factura, proveedor e importe son obligatorios',true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; }
+    const existingFac = _eid ? DB.facturas.find(x=>x.id===_eid) : null;
+    obj={id:_eid||uid(),numero:gv('f-numero'),proveedorId:gv('f-proveedorId'),presupuestoId:gv('f-presupuestoId'),fecha:gv('f-fecha'),importe:gn('f-importe'),vencimiento:gv('f-vencimiento'),notas:gv('f-notas'),pdfUrl:pdfUrl||(existingFac&&existingFac.pdfUrl)||null};
+    upsert('facturas',obj);
+  }else if(_mtype==='pago'){
+    if(!gv('f-proveedorId')||!gn('f-importe')||!gv('f-fecha')){ toast('Proveedor, importe y fecha son obligatorios',true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; }
+    const existingPag = _eid ? DB.pagos.find(x=>x.id===_eid) : null;
+    obj={id:_eid||uid(),proveedorId:gv('f-proveedorId'),facturaId:gv('f-facturaId'),fecha:gv('f-fecha'),importe:gn('f-importe'),metodo:gv('f-metodo'),referencia:gv('f-referencia'),notas:gv('f-notas'),pdfUrl:pdfUrl||(existingPag&&existingPag.pdfUrl)||null};
+    upsert('pagos',obj);
+  }
   const b=document.getElementById('btn-save'); if(b){b.disabled=false;b.innerHTML='💾 Guardar';}
 }
-function upsert(col,obj){ if(_eid){ const i=DB[col].findIndex(x=>x.id===_eid); if(i>=0)DB[col][i]=obj; } else DB[col].push(obj); const cur=curSec(); closeModal(); toast(_eid?'Guardado ✓':'Añadido ✓'); render(cur); schedSave(); }
-function delItem(col,id){ _confirmCb=()=>{ DB[col]=DB[col].filter(x=>x.id!==id); toast('Eliminado'); render(curSec()); schedSave(); }; document.getElementById('confirm-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeConfirm(ok){ document.getElementById('confirm-overlay').classList.remove('open'); document.body.style.overflow=''; if(ok&&_confirmCb)_confirmCb(); _confirmCb=null; }
-function toast(msg,err=false){ const t=document.createElement('div'); t.className='toast'+(err?' err':''); t.textContent=msg; document.getElementById('toasts').appendChild(t); setTimeout(()=>t.remove(),2800); }
+
+function upsert(col,obj){
+  if(_eid){ const i=DB[col].findIndex(x=>x.id===_eid); if(i>=0)DB[col][i]=obj; }
+  else DB[col].push(obj);
+  const cur=curSec(); closeModal();
+  toast(_eid?'Guardado ✓':'Añadido ✓');
+  render(cur);
+  schedSave();
+}
+
+function delItem(col,id){
+  _confirmCb=()=>{ DB[col]=DB[col].filter(x=>x.id!==id); toast('Eliminado'); render(curSec()); schedSave(); };
+  document.getElementById('confirm-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeConfirm(ok){
+  document.getElementById('confirm-overlay').classList.remove('open');
+  document.body.style.overflow='';
+  if(ok&&_confirmCb)_confirmCb();
+  _confirmCb=null;
+}
+
+function toast(msg,err=false){
+  const t=document.createElement('div'); t.className='toast'+(err?' err':''); t.textContent=msg;
+  document.getElementById('toasts').appendChild(t); setTimeout(()=>t.remove(),2800);
+}
+
 window.addEventListener('resize',()=>render(curSec()));
+
 loadConfig();
-if(CFG&&CFG.user&&CFG.repo&&CFG.token){ document.getElementById('setup-screen').classList.add('hide'); initApp(); }
+if(CFG && CFG.user && CFG.repo && CFG.token){
+  document.getElementById('setup-screen').classList.add('hide');
+  initApp();
+}
 </script>
 </body>
 </html>
