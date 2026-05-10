@@ -50,6 +50,17 @@
       "vencimiento": "2026-05-08",
       "notas": "",
       "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778431817200_33_2026_-_CONSTRUPLAC_MALLORCA_SLU_copia.pdf"
+    },
+    {
+      "id": "mp00gxts04fg",
+      "numero": "2026-0010",
+      "proveedorId": "mp00fu7b31k1",
+      "presupuestoId": "",
+      "fecha": "2026-05-08",
+      "importe": 1573,
+      "vencimiento": "2026-05-08",
+      "notas": "CALAVATRA",
+      "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778431957521_Factura_2026-0010_ventana_oscilobatiente_.pdf"
     }
   ],
   "pagos": [
