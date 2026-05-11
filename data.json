@@ -112,6 +112,17 @@
       "vencimiento": "2026-05-12",
       "notas": "Pago por Confirming",
       "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778490435421_Factura_CNSTRUPLAC_Cala_Vinyes.pdf"
+    },
+    {
+      "id": "mp18s4iwsb7f",
+      "numero": "F-38/2026",
+      "proveedorId": "mp18r890nwoj",
+      "presupuestoId": "",
+      "fecha": "2026-05-11",
+      "importe": 11000,
+      "vencimiento": "2026-05-12",
+      "notas": "",
+      "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778506382337_Factura_F-38_2026.pdf"
     }
   ],
   "pagos": [
