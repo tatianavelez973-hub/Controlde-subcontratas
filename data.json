@@ -92,6 +92,17 @@
       "vencimiento": "2026-05-08",
       "notas": "",
       "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778432100163_Factura_2026-0013_COBRO_50__MONTAJE_PUERTAS_FILOMURO_.pdf"
+    },
+    {
+      "id": "mp0zabwcoi52",
+      "numero": "2026/59",
+      "proveedorId": "mp0z93qvbeyt",
+      "presupuestoId": "",
+      "fecha": "2026-04-30",
+      "importe": 16500,
+      "vencimiento": "2026-05-12",
+      "notas": "Pago por Confirming",
+      "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778490435421_Factura_CNSTRUPLAC_Cala_Vinyes.pdf"
     }
   ],
   "pagos": [
