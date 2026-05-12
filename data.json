@@ -38,7 +38,7 @@
     },
     {
       "id": "mp18r890nwoj",
-      "nombre": "CARPINTERÍA METÁLICA SEGUI-HAMID S.L.",
+      "nombre": "CARPINTERÃA METÃLICA SEGUI-HAMID S.L.",
       "cif": "B75841189",
       "contacto": "",
       "telefono": "650232566",
@@ -180,6 +180,17 @@
       "referencia": "TRANSFERENCIA",
       "notas": "",
       "pdfUrl": null
+    },
+    {
+      "id": "mp2cbuuk2aqn",
+      "proveedorId": "mp18r890nwoj",
+      "facturaId": "mp18s4iwsb7f",
+      "fecha": "2026-05-12",
+      "importe": 11000,
+      "metodo": "Transferencia bancaria",
+      "referencia": "CONFIRMING",
+      "notas": "",
+      "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778572806347_Confirming_Carpinteria-Segui.pdf"
     }
   ]
 }
