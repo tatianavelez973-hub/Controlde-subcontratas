@@ -222,6 +222,17 @@
       "referencia": "CONFIRMING",
       "notas": "",
       "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778665012781_6BD4F3.pdf"
+    },
+    {
+      "id": "mpgqj0cs058e",
+      "proveedorId": "mpgqhqyh8303",
+      "facturaId": "mpgqik510lg5",
+      "fecha": "2026-05-22",
+      "importe": 2000,
+      "metodo": "Transferencia bancaria",
+      "referencia": "TRANSFERENCIA",
+      "notas": "",
+      "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1779443182912_99D7CC.pdf"
     }
   ]
 }
