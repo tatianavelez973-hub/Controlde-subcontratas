@@ -132,6 +132,17 @@
       "vencimiento": "2026-05-12",
       "notas": "",
       "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1778506382337_Factura_F-38_2026.pdf"
+    },
+    {
+      "id": "mpgqik510lg5",
+      "numero": "2026/1/1",
+      "proveedorId": "mpgqhqyh8303",
+      "presupuestoId": "",
+      "fecha": "2026-05-04",
+      "importe": 2000,
+      "vencimiento": "2026-05-22",
+      "notas": "",
+      "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1779443161627_TPDF-3.PDF.pdf"
     }
   ],
   "pagos": [
