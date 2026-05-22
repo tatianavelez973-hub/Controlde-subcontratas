@@ -38,11 +38,20 @@
     },
     {
       "id": "mp18r890nwoj",
-      "nombre": "CARPINTERÃA METÃLICA SEGUI-HAMID S.L.",
+      "nombre": "CARPINTERÃÂA METÃÂLICA SEGUI-HAMID S.L.",
       "cif": "B75841189",
       "contacto": "",
       "telefono": "650232566",
       "email": "cerrajeria-segui-hamid@hotmail.com",
+      "notas": ""
+    },
+    {
+      "id": "mpgqhqyh8303",
+      "nombre": "MOHMOOD ARIF",
+      "cif": "X6889126M",
+      "contacto": "TOMAS RULLAN, 70",
+      "telefono": "",
+      "email": "",
       "notas": ""
     }
   ],
