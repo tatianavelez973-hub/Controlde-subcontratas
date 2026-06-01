@@ -143,6 +143,17 @@
       "vencimiento": "2026-05-22",
       "notas": "",
       "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1779443161627_TPDF-3.PDF.pdf"
+    },
+    {
+      "id": "mpuzt4hoapzf",
+      "numero": "2026-70",
+      "proveedorId": "mp0z93qvbeyt",
+      "presupuestoId": "",
+      "fecha": "2026-05-20",
+      "importe": 1660.35,
+      "vencimiento": "2026-06-01",
+      "notas": "",
+      "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1780305297649_Factura_CONSTRUPLAC_Arenal.pdf"
     }
   ],
   "pagos": [
