@@ -165,6 +165,17 @@
       "vencimiento": "2026-06-01",
       "notas": "",
       "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1780305573590_Factura_CONSTRUPLAC_Luisa.pdf"
+    },
+    {
+      "id": "mpxu7guxmy8a",
+      "numero": "FACTURA No. 37/26",
+      "proveedorId": "mp00d1pvaamy",
+      "presupuestoId": "",
+      "fecha": "2026-05-27",
+      "importe": 13559.7,
+      "vencimiento": "2026-06-05",
+      "notas": "Obra: Cala Vinyes",
+      "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1780477286615_37_2026_CONSTRUPLAC_MALLORCA_SLU__MODIFICADA_.pdf"
     }
   ],
   "pagos": [
