@@ -55,7 +55,18 @@
       "notas": ""
     }
   ],
-  "presupuestos": [],
+  "presupuestos": [
+    {
+      "id": "mq0q36xfv1wu",
+      "numero": "P-2026-0024",
+      "proveedorId": "mp00fu7b31k1",
+      "obra": "Cala Vinyes",
+      "descripcion": "",
+      "importe": 2904,
+      "fecha": "2026-04-09",
+      "estado": "aprobado"
+    }
+  ],
   "facturas": [
     {
       "id": "mozznkf82q5y",
