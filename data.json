@@ -310,6 +310,17 @@
       "referencia": "TRANSFERENCIA",
       "notas": "",
       "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1780305736700_AF4810.pdf"
+    },
+    {
+      "id": "mq0q7cpgyyt4",
+      "proveedorId": "mp00d1pvaamy",
+      "facturaId": "mpxu7guxmy8a",
+      "fecha": "2026-06-04",
+      "importe": 13559.7,
+      "metodo": "Transferencia bancaria",
+      "referencia": "",
+      "notas": "",
+      "pdfUrl": null
     }
   ]
 }
