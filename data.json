@@ -187,6 +187,17 @@
       "vencimiento": "2026-06-05",
       "notas": "Obra: Cala Vinyes",
       "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1780477286615_37_2026_CONSTRUPLAC_MALLORCA_SLU__MODIFICADA_.pdf"
+    },
+    {
+      "id": "mq0q48eu4ru1",
+      "numero": "2026-11",
+      "proveedorId": "mp00fu7b31k1",
+      "presupuestoId": "mq0q36xfv1wu",
+      "fecha": "2026-05-29",
+      "importe": 1829.52,
+      "vencimiento": "2026-06-05",
+      "notas": "",
+      "pdfUrl": "https://raw.githubusercontent.com/tatianavelez973-hub/Controlde-subcontratas/main/pdfs/1780651816435_Factura_2026-0011_ANTICIPO_PELDAN_OS_ROBLE__copia.pdf"
     }
   ],
   "pagos": [
