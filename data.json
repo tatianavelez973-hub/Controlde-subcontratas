@@ -387,6 +387,17 @@
       "referencia": "",
       "notas": "",
       "pdfUrl": null
+    },
+    {
+      "id": "mq513g81ce1g",
+      "proveedorId": "mp00fu7b31k1",
+      "facturaId": "mq0qa009tfxj",
+      "fecha": "2026-06-08",
+      "importe": 1863.4,
+      "metodo": "Transferencia bancaria",
+      "referencia": "CONFIRMING",
+      "notas": "",
+      "pdfUrl": null
     }
   ]
 }
