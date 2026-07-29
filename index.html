@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -288,6 +288,7 @@ input.flt{width:auto;min-width:120px;font-size:12px;padding:6px 10px}
     <div id="sec-facturas" class="section">
       <div class="sec-hd"><h3>Facturas</h3><button class="btn btn-p btn-sm" onclick="openModal('factura')">+ Añadir</button></div>
       <div class="sec-filters">
+        <select class="flt" id="ff-year" onchange="render('facturas')" style="font-weight:700"><option value="">Todos los años</option></select>
         <select class="flt" id="ff-prov" onchange="render('facturas')"><option value="">Todos los proveedores</option></select>
         <select class="flt" id="ff-est" onchange="render('facturas')">
           <option value="">Todos los estados</option>
@@ -402,10 +403,18 @@ async function ghLoad(){
 }
 
 async function ghSave(db){
-  const content=btoa(unescape(encodeURIComponent(JSON.stringify(db,null,2))));
-  const body={message:'Actualización datos '+new Date().toISOString().slice(0,16).replace('T',' '),content,...(FILE_SHA?{sha:FILE_SHA}:{})};
-  const res=await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${DATA_PATH}`,{method:'PUT',headers:ghHeaders(),body:JSON.stringify(body)});
-  if(!res.ok) throw new Error('Error HTTP '+res.status);
+  const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(db,null,2))));
+  const doSave=async(sha)=>fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${DATA_PATH}`,{method:'PUT',headers:ghHeaders(),body:JSON.stringify({message:'Actualización datos '+new Date().toISOString().slice(0,16).replace('T',' '),content:encoded,...(sha?{sha}:{})})});
+  let res=await doSave(FILE_SHA);
+  if(res.status===409||res.status===422){
+    toast('Reintentando guardado…');
+    const fresh=await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${DATA_PATH}`,{headers:ghHeaders()});
+    FILE_SHA=fresh.ok?(await fresh.json()).sha:null;
+    res=await doSave(FILE_SHA);
+  }
+  if(res.status===401) throw new Error('Token inválido o caducado → ve a ⚙️ Cambiar cuenta y crea un nuevo token en GitHub');
+  if(res.status===403) throw new Error('Sin permisos → el token necesita el permiso "repo"');
+  if(!res.ok) throw new Error('Error GitHub '+res.status+' → recarga la página e inténtalo de nuevo');
   FILE_SHA=(await res.json()).content.sha;
 }
 
@@ -476,7 +485,7 @@ function schedSave(){
   setSaveBar('saving','⏳ Guardando en GitHub…');
   _saveTimer=setTimeout(async()=>{
     try { await ghSave(DB); setSaveBar('saved','✅ Guardado en GitHub'); }
-    catch(e){ setSaveBar('error','❌ Error al guardar: '+e.message); toast('Error al guardar: '+e.message,true); }
+    catch(e){ const _b=document.getElementById('save-bar');_b.className='error';_b.style.display='flex';_b.innerHTML='<span style="flex:1">❌ '+e.message+'</span><button onclick="schedSave()" style="padding:3px 10px;border:none;border-radius:5px;background:#991b1b;color:#fff;cursor:pointer;font-weight:700;font-size:11px;margin-left:10px;white-space:nowrap">↺ Reintentar</button><button onclick="this.parentElement.style.display=\'none\'" style="padding:3px 8px;border:none;border-radius:5px;background:rgba(0,0,0,.2);color:#fff;cursor:pointer;margin-left:4px">✕</button>';toast('❌ Error al guardar: '+e.message,true); }
   },1000);
 }
 
@@ -603,9 +612,13 @@ function renderPre(){
 }
 
 function renderFac(){
+  const ysel=document.getElementById('ff-year');
+  if(ysel){const yrs=[...new Set(DB.facturas.map(f=>(f.fecha||'').slice(0,4)).filter(y=>y.length===4))].sort((a,b)=>b-a);const cv=ysel.value;ysel.innerHTML='<option value="">Todos los años</option>'+yrs.map(y=>`<option value="${y}"${cv===y?' selected':''}>${y}</option>`).join('');}
+  const yf=ysel?ysel.value:'';
   const pf=document.getElementById('ff-prov')?.value||'';
   const ef=document.getElementById('ff-est')?.value||'';
   let list=DB.facturas;
+  if(yf)list=list.filter(f=>(f.fecha||'').startsWith(yf));
   if(pf)list=list.filter(f=>f.proveedorId===pf);
   if(ef)list=list.filter(f=>estFac(f)===ef);
   document.getElementById('tbl-fac').innerHTML=list.length?list.map(f=>{
