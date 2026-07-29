@@ -418,22 +418,13 @@ async function ghSave(db){
   FILE_SHA=(await res.json()).content.sha;
 }
 
-async function ghUploadPDF(file){
+// Lee un archivo como base64 data URL (para adjuntar PDFs inline)
+function readFileAsDataURL(file){
   return new Promise((resolve,reject)=>{
-    const reader=new FileReader();
-    reader.onload=async(e)=>{
-      try {
-        const base64=e.target.result.split(',')[1];
-        const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
-        const filename=`pdfs/${Date.now()}_${safeName}`;
-        const body={message:'Adjunto PDF '+file.name,content:base64};
-        const res=await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${filename}`,{method:'PUT',headers:ghHeaders(),body:JSON.stringify(body)});
-        if(!res.ok) throw new Error('Error subiendo PDF: '+res.status);
-        resolve((await res.json()).content.download_url);
-      } catch(err){ reject(err); }
-    };
-    reader.onerror=()=>reject(new Error('Error leyendo el archivo'));
-    reader.readAsDataURL(file);
+    const r=new FileReader();
+    r.onload=e=>resolve(e.target.result);
+    r.onerror=()=>reject(new Error('Error leyendo el archivo'));
+    r.readAsDataURL(file);
   });
 }
 
@@ -624,6 +615,7 @@ function renderFac(){
   document.getElementById('tbl-fac').innerHTML=list.length?list.map(f=>{
     const pg=pagadoF(f.id); const pd=(+f.importe||0)-pg; const est=estFac(f);
     const vcd=f.vencimiento&&new Date(f.vencimiento+'T12:00:00')<new Date()&&est!=='pagada';
+    const pdfLink=f.pdfUrl?`<a href="${f.pdfUrl.startsWith('data:')?'#':''}${f.pdfUrl.startsWith('data:')?'" onclick="openPDF(event,\''+f.id+'\',\'f\')"':esc(f.pdfUrl)+'" target="_blank"'} class="btn btn-o btn-xs" title="Ver PDF">📄</a> `:'';
     return`<tr><td class="fw">${esc(f.numero||'—')}</td><td>${esc(provN(f.proveedorId))}</td>
       <td class="mu" style="font-size:10px">${esc(preL(f.presupuestoId))}</td>
       <td>${dt(f.fecha)}</td><td class="${vcd?'tr fw':''}">${dt(f.vencimiento)}</td>
@@ -631,7 +623,7 @@ function renderFac(){
       <td style="text-align:right" class="tg">${fmt(pg)}</td>
       <td style="text-align:right" class="${pd>0?(vcd?'tr':'to'):''} fw">${fmt(pd)}</td>
       <td>${vcd?bdg('vencida'):bdg(est)}</td>
-      <td style="white-space:nowrap">${f.pdfUrl?`<a href="${esc(f.pdfUrl)}" target="_blank" class="btn btn-o btn-xs" title="Ver PDF">📄</a> `:''}
+      <td style="white-space:nowrap">${f.pdfUrl?`<button class="btn btn-o btn-xs" onclick="openPDF('${f.id}','f')" title="Ver PDF">📄</button> `:''}
       <button class="btn btn-s btn-xs" onclick="openModal('pago',null,'${f.id}')" title="Pagar">💳</button> <button class="btn btn-o btn-xs" onclick="openModal('factura','${f.id}')">✏️</button> <button class="btn btn-d btn-xs" onclick="delItem('facturas','${f.id}')">🗑️</button></td></tr>`;
   }).join(''):`<tr><td colspan="10" class="empty-row"><div class="ei">🧾</div><p>Sin facturas.</p></td></tr>`;
   document.getElementById('fac-desk').style.display=isMob()?'none':'block';
@@ -644,9 +636,21 @@ function renderFac(){
       <div class="ic-row"><span class="ic-meta">📅 ${dt(f.fecha)}${f.vencimiento?' · vence '+dt(f.vencimiento):''}</span><span class="ic-amt">${fmt(f.importe)}</span></div>
       <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;${vcd?'background:var(--err)':''}"></div></div>
       <div style="font-size:10px;color:var(--mu);margin-top:3px;display:flex;justify-content:space-between"><span class="tg">Pagado: ${fmt(pg)}</span><span class="${pd>0?(vcd?'tr':'to'):''}">Pendiente: ${fmt(pd)}</span></div>
-      <div class="ic-actions"><button class="btn btn-s btn-sm" style="flex:2;justify-content:center" onclick="openModal('pago',null,'${f.id}')">💳 Registrar pago</button>${f.pdfUrl?`<a href="${esc(f.pdfUrl)}" target="_blank" class="btn btn-o btn-sm">📄</a>`:''}<button class="btn btn-o btn-sm" onclick="openModal('factura','${f.id}')">✏️</button><button class="btn btn-d btn-sm" onclick="delItem('facturas','${f.id}')">🗑️</button></div>
+      <div class="ic-actions"><button class="btn btn-s btn-sm" style="flex:2;justify-content:center" onclick="openModal('pago',null,'${f.id}')">💳 Registrar pago</button>${f.pdfUrl?`<button class="btn btn-o btn-sm" onclick="openPDF('${f.id}','f')">📄</button>`:''}<button class="btn btn-o btn-sm" onclick="openModal('factura','${f.id}')">✏️</button><button class="btn btn-d btn-sm" onclick="delItem('facturas','${f.id}')">🗑️</button></div>
     </div>`;
   }).join(''):`<div class="item-card" style="text-align:center;padding:32px"><p style="color:var(--mu);font-size:13px">Sin facturas.</p></div>`):'';
+}
+
+function openPDF(id,type){
+  const col=type==='f'?'facturas':'pagos';
+  const item=DB[col].find(x=>x.id===id);
+  if(!item||!item.pdfUrl)return;
+  if(item.pdfUrl.startsWith('data:')){
+    const w=window.open('','_blank');
+    w.document.write('<iframe src="'+item.pdfUrl+'" style="width:100%;height:100vh;border:none"></iframe>');
+  } else {
+    window.open(item.pdfUrl,'_blank');
+  }
 }
 
 function renderPag(){
@@ -662,7 +666,7 @@ function renderPag(){
     <td class="mu" style="font-size:10px">${esc(facL(p.facturaId))}</td>
     <td style="text-align:right" class="tg fw">${fmt(p.importe)}</td>
     <td>${esc(p.metodo||'—')}</td><td class="mu" style="font-size:10px">${esc(p.referencia||'—')}</td>
-    <td style="white-space:nowrap">${p.pdfUrl?`<a href="${esc(p.pdfUrl)}" target="_blank" class="btn btn-o btn-xs" title="Ver PDF">📄</a> `:''}
+    <td style="white-space:nowrap">${p.pdfUrl?`<button class="btn btn-o btn-xs" onclick="openPDF('${p.id}','p')" title="Ver PDF">📄</button> `:''}
     <button class="btn btn-o btn-xs" onclick="openModal('pago','${p.id}')">✏️</button> <button class="btn btn-d btn-xs" onclick="delItem('pagos','${p.id}')">🗑️</button></td></tr>`).join('')+
     `<tr style="background:#f8fafc"><td colspan="3" class="fw mu" style="font-size:10px;text-transform:uppercase;letter-spacing:.04em">Total</td><td style="text-align:right" class="fw">${fmt(tot)}</td><td colspan="3"></td></tr>`
     :`<tr><td colspan="7" class="empty-row"><div class="ei">💳</div><p>Sin pagos.</p></td></tr>`;
@@ -671,7 +675,7 @@ function renderPag(){
     <div class="item-card ok">
       <div class="ic-top"><div><div class="ic-title">${fmt(p.importe)}</div><div class="ic-sub">${esc(provN(p.proveedorId))}${p.facturaId?' · Fac. '+esc(facL(p.facturaId)):''}</div></div><span style="font-size:12px;color:var(--mu)">${dt(p.fecha)}</span></div>
       ${p.metodo?`<div class="ic-meta" style="margin-top:6px">💳 ${esc(p.metodo)}${p.referencia?' · '+esc(p.referencia):''}</div>`:''}
-      <div class="ic-actions">${p.pdfUrl?`<a href="${esc(p.pdfUrl)}" target="_blank" class="btn btn-o btn-sm">📄 Ver PDF</a>`:''}<button class="btn btn-o btn-sm" style="flex:1;justify-content:center" onclick="openModal('pago','${p.id}')">✏️ Editar</button><button class="btn btn-d btn-sm" onclick="delItem('pagos','${p.id}')">🗑️</button></div>
+      <div class="ic-actions">${p.pdfUrl?`<button class="btn btn-o btn-sm" onclick="openPDF('${p.id}','p')">📄 Ver PDF</button>`:''}<button class="btn btn-o btn-sm" style="flex:1;justify-content:center" onclick="openModal('pago','${p.id}')">✏️ Editar</button><button class="btn btn-d btn-sm" onclick="delItem('pagos','${p.id}')">🗑️</button></div>
     </div>`),
     [`<div style="background:var(--wh);border-radius:10px;padding:14px;box-shadow:var(--sh);display:flex;justify-content:space-between;align-items:center"><span class="mu" style="font-size:12px;font-weight:700;text-transform:uppercase">Total</span><span class="fw" style="font-size:16px">${fmt(tot)}</span></div>`]
   ].flat().join(''):`<div class="item-card" style="text-align:center;padding:32px"><p style="color:var(--mu);font-size:13px">Sin pagos.</p></div>`):'';
@@ -729,9 +733,9 @@ function buildForm(type,d,prefacId){
     <div class="fg"><label>Importe (€) *</label><input id="f-importe" type="number" inputmode="decimal" step="0.01" min="0" value="${d.importe||''}" placeholder="0.00"></div>
     <div class="fg"><label>Notas</label><textarea id="f-notas" rows="2" placeholder="Observaciones...">${esc(d.notas||'')}</textarea></div>
     <div class="fg"><label>📎 Adjuntar PDF</label>
-      ${d.pdfUrl?`<div style="margin-bottom:8px;display:flex;align-items:center;gap:8px"><a href="${esc(d.pdfUrl)}" target="_blank" class="btn btn-o btn-xs">📄 Ver PDF actual</a><span style="font-size:11px;color:var(--mu)">Sube otro para reemplazarlo</span></div>`:''}
+      ${d.pdfUrl?`<div style="margin-bottom:8px"><button type="button" class="btn btn-o btn-xs" onclick="openPDF('${d.id||''}','f')">📄 Ver PDF actual</button> <span style="font-size:11px;color:var(--mu)">Sube otro para reemplazarlo</span></div>`:''}
       <input type="file" id="f-pdf" accept=".pdf,application/pdf" style="padding:6px;font-size:12px">
-      <div class="fg-hint">Sube el PDF de la factura (máx. 25 MB). Se guardará en tu repositorio GitHub.</div>
+      <div class="fg-hint">Máx. 1.5 MB. El PDF se guarda integrado en los datos.</div>
     </div>`;
 
   if(type==='pago')return`
@@ -743,9 +747,9 @@ function buildForm(type,d,prefacId){
     <div class="fg"><label>Referencia</label><input id="f-referencia" value="${esc(d.referencia||'')}" placeholder="TRF-00001"></div></div>
     <div class="fg"><label>Notas</label><textarea id="f-notas" rows="2" placeholder="Observaciones...">${esc(d.notas||'')}</textarea></div>
     <div class="fg"><label>📎 Adjuntar PDF</label>
-      ${d.pdfUrl?`<div style="margin-bottom:8px;display:flex;align-items:center;gap:8px"><a href="${esc(d.pdfUrl)}" target="_blank" class="btn btn-o btn-xs">📄 Ver PDF actual</a><span style="font-size:11px;color:var(--mu)">Sube otro para reemplazarlo</span></div>`:''}
+      ${d.pdfUrl?`<div style="margin-bottom:8px"><button type="button" class="btn btn-o btn-xs" onclick="openPDF('${d.id||''}','p')">📄 Ver PDF actual</button> <span style="font-size:11px;color:var(--mu)">Sube otro para reemplazarlo</span></div>`:''}
       <input type="file" id="f-pdf" accept=".pdf,application/pdf" style="padding:6px;font-size:12px">
-      <div class="fg-hint">Sube el justificante de pago en PDF (máx. 25 MB). Se guardará en tu repositorio GitHub.</div>
+      <div class="fg-hint">Máx. 1.5 MB. El PDF se guarda integrado en los datos.</div>
     </div>`;
 }
 
@@ -754,13 +758,20 @@ function gn(id){ return parseFloat(gv(id))||0; }
 
 async function saveModal(){
   const btn=document.getElementById('btn-save'); if(btn){btn.disabled=true;btn.textContent='Guardando…';}
-  let pdfUrl=null;
+  let pdfData=null;
   const pdfInput=document.getElementById('f-pdf');
   if(pdfInput&&pdfInput.files&&pdfInput.files[0]){
     const file=pdfInput.files[0];
-    if(file.size>25*1024*1024){ toast('El PDF supera los 25 MB',true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; }
-    try { if(btn)btn.textContent='📤 Subiendo PDF…'; pdfUrl=await ghUploadPDF(file); toast('PDF subido ✓'); }
-    catch(e){ toast('Error al subir el PDF: '+e.message,true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; }
+    if(file.size>1.5*1024*1024){
+      toast('El PDF supera 1.5 MB. Comprime el PDF e inténtalo de nuevo.',true);
+      if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return;
+    }
+    try {
+      if(btn)btn.textContent='📎 Leyendo PDF…';
+      pdfData=await readFileAsDataURL(file);
+      toast('PDF adjuntado ✓');
+    }
+    catch(e){ toast('Error al leer el PDF: '+e.message,true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; }
   }
   let obj=null;
   if(_mtype==='proveedor'){
@@ -774,12 +785,12 @@ async function saveModal(){
   }else if(_mtype==='factura'){
     if(!gv('f-numero')||!gv('f-proveedorId')||!gn('f-importe')){ toast('Nº factura, proveedor e importe son obligatorios',true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; }
     const existingFac=_eid?DB.facturas.find(x=>x.id===_eid):null;
-    obj={id:_eid||uid(),numero:gv('f-numero'),proveedorId:gv('f-proveedorId'),presupuestoId:gv('f-presupuestoId'),fecha:gv('f-fecha'),importe:gn('f-importe'),vencimiento:gv('f-vencimiento'),notas:gv('f-notas'),pdfUrl:pdfUrl||(existingFac&&existingFac.pdfUrl)||null};
+    obj={id:_eid||uid(),numero:gv('f-numero'),proveedorId:gv('f-proveedorId'),presupuestoId:gv('f-presupuestoId'),fecha:gv('f-fecha'),importe:gn('f-importe'),vencimiento:gv('f-vencimiento'),notas:gv('f-notas'),pdfUrl:pdfData||(existingFac&&existingFac.pdfUrl)||null};
     upsert('facturas',obj);
   }else if(_mtype==='pago'){
     if(!gv('f-proveedorId')||!gn('f-importe')||!gv('f-fecha')){ toast('Proveedor, importe y fecha son obligatorios',true); if(btn){btn.disabled=false;btn.innerHTML='💾 Guardar';} return; }
     const existingPag=_eid?DB.pagos.find(x=>x.id===_eid):null;
-    obj={id:_eid||uid(),proveedorId:gv('f-proveedorId'),facturaId:gv('f-facturaId'),fecha:gv('f-fecha'),importe:gn('f-importe'),metodo:gv('f-metodo'),referencia:gv('f-referencia'),notas:gv('f-notas'),pdfUrl:pdfUrl||(existingPag&&existingPag.pdfUrl)||null};
+    obj={id:_eid||uid(),proveedorId:gv('f-proveedorId'),facturaId:gv('f-facturaId'),fecha:gv('f-fecha'),importe:gn('f-importe'),metodo:gv('f-metodo'),referencia:gv('f-referencia'),notas:gv('f-notas'),pdfUrl:pdfData||(existingPag&&existingPag.pdfUrl)||null};
     upsert('pagos',obj);
   }
   const b=document.getElementById('btn-save'); if(b){b.disabled=false;b.innerHTML='💾 Guardar';}
